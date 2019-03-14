@@ -1,44 +1,64 @@
-<img src="../../../assets/img/logo.svg" alt="YEiPii Delivery">
+<div class="container-fluid">
+  <div class="row">
 
-<form (ngSubmit)="onSubmit()" #form="ngForm">
+    <!-- seccion para login -->
+    <div class="col-4 login">
+      <img src="../../../assets/img/logo.svg" alt="YEiPii Delivery">
 
-  <!-- Mensaje de error -->
-  <div *ngIf="mensaje" class="alert alert-danger" role="alert">
-    {{ mensaje }}
-  </div>
+      <form (ngSubmit)="onSubmit()" #form="ngForm">
 
-  <div class="form-group">
-    <label for="exampleInputEmail1">Nombre de Usuario</label>
-    <input type="email"
-           class="form-control" 
-           id="correo" 
-           placeholder="Nombre de Usuario" 
-           name="correo"
-           [(ngModel)]="user.correo"
-           required>
-  </div>
-  
-  <div class="form-group">
-    <label for="exampleInputPassword1">Contraseña</label>
-    <input type="password" 
-           class="form-control" 
-           id="clave" 
-           placeholder="Contraseña" 
-           name="clave"
-           [(ngModel)]="user.clave"
-           required>
-  </div>
+        <!-- Mensaje de error -->
+        <div *ngIf="mensaje" class="alert alert-danger" role="alert">
+          {{ mensaje }}
+        </div>
 
-  <div class="form-group row login">
-    <div class="col-3">
-      <button type="submit" 
-              class="btn btn-primary btn-login col-12" 
-              [disabled]="!form.form.valid"> Entrar
-      </button>
+        <div class="form-group">
+          <label for="exampleInputEmail1">Nombre de Usuario</label>
+          <input type="email"
+                class="form-control" 
+                id="correo" 
+                placeholder="Nombre de Usuario" 
+                name="correo"
+                [(ngModel)]="user.correo"
+                required>
+        </div>
+        
+        <div class="form-group">
+          <label for="exampleInputPassword1">Contraseña</label>
+          <input type="password" 
+                class="form-control" 
+                id="clave" 
+                placeholder="Contraseña" 
+                name="clave"
+                [(ngModel)]="user.clave"
+                required>
+        </div>
+
+        <div class="form-group row login">
+          <div class="col-3">
+            <button type="submit" 
+                    class="btn btn-primary btn-login col-12" 
+                    [disabled]="!form.form.valid"> Entrar
+            </button>
+          </div>
+          <div class="col-9 text-right link">
+            <a href="">¿Olvidaste tu contraseña?</a>
+          </div>
+        </div>
+        
+      </form>      
     </div>
-    <div class="col-9 text-right link">
-      <a href="">¿Olvidaste tu contraseña?</a>
+    
+    <!-- seccion de imagen -->
+    <div class="col-8 hero">
+      <div class="texto">
+        <h1 class="title">Bienvenido a YEiPii Delivery</h1>
+        <h4>Entra al sistema con tu cuenta para poder gestionar tus servicios</h4>
+      </div>
     </div>
-  </div>
   
-</form>
+  </div>
+</div>
+
+
+
