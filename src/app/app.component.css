@@ -2,3 +2,15 @@
     background-color: #F4F4F4;
     padding: 0 30px;
 }
+
+.hero {
+    text-align: center;
+    color: white;
+    display: grid;
+    place-items: center center;
+}
+
+.title {
+    font-size: 3.5rem;
+    font-weight: 900;
+}
