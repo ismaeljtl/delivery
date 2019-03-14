@@ -1,0 +1,27 @@
+img {
+    margin: 20% 10% 10%;
+}
+
+.link {
+    margin: auto;
+}
+
+.btn-login {
+    background-color: #0F0E9F;
+    border-color: #0F0E9F;
+}
+.btn-login:hover {
+    background-color: #08078C;
+    border-color: #08078C;
+}
+
+a {
+    color: #6c757d;
+}
+a:hover {
+    color: #51585f;
+}
+
+.login {
+    margin-top: 10%;
+}
