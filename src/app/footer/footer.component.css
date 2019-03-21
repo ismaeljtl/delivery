@@ -1,0 +1,12 @@
+.footer {
+    position: relative;
+    padding: 1rem 1rem;
+    display: grid;
+    place-items: center center;
+    background-color: white;
+}
+
+.info {
+    margin: auto;
+    font-weight: 900;
+}

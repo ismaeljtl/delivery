@@ -5,6 +5,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginModule } from './login/login.module';
 import { IndexModule } from './index/index.module';
+import { PedidosModule } from './pedidos/pedidos.module';
+import { MenuModule } from './menu/menu.module';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
 
@@ -18,6 +20,8 @@ import { FooterComponent } from './footer/footer.component';
     BrowserModule,
     LoginModule,
     IndexModule,
+    MenuModule,
+    PedidosModule,
     AppRoutingModule,
   ],
   providers: [],

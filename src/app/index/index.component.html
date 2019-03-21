@@ -1,3 +1,24 @@
-<p>
-  index works!
-</p>
+<div class="container-fluid">
+
+  <div class="perfil">
+    <h1>Aqui va el perfil</h1>
+  </div>
+  <div class="menu">
+    <button class="btn btn-menu" routerLink="/menu"><h2>MENÚ</h2></button>
+  </div>
+  
+  <div class="pedidos">
+    <button class="btn btn-pedidos" routerLink="/pedidos">
+      <h2>PEDIDOS</h2>
+      <div class="alerta">
+        <ng-template [ngIf]="pedidos === 0" [ngIfElse]="alertRed">
+          <span class="alert-blue">{{ pedidos }}</span><p>PEDIDOS</p>
+        </ng-template>
+        <ng-template #alertRed>
+          <span class="alert-red">{{ pedidos }}</span><p>PEDIDOS</p>          
+        </ng-template>
+      </div>
+    </button>
+  </div>
+
+</div>
