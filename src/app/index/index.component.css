@@ -1,16 +1,17 @@
 .container-fluid {
     padding: 0;
     display: grid;
+    height: 100%;
     grid-template-columns: 70% 30%;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
     grid-template-areas: "perfil menu"
                          "perfil pedidos"
+                         "perfil zonas";
 }
 
 .perfil {
     grid-area: perfil;
     width: 100%;
-    height: 80vh;
     background-color: #f4f4f4;
     
     /* para alinear el contenido */
@@ -21,26 +22,36 @@
 
 .menu {
     grid-area: menu;
+    display: flex;
+    flex: 1;
 }
 
 .pedidos {
     grid-area: pedidos;
+    display: flex;
+    flex: 1;
 }
 
-.btn-menu {
+.zonas {
+    grid-area: zonas;
+    display: flex;
+    flex: 1;
+}
+
+.btn-light {
     width: 100%;
-    height: 40vh;
     background-color: #090899;
     color: white;
+    border: 0;
     border-radius: 0;
     font-weight: 900;
 }
 
-.btn-pedidos {
+.btn-dark {
     width: 100%;
-    height: 40vh;
     background-color: #000A66;
     color: white;
+    border: 0;
     border-radius: 0;
     font-weight: 900;
 }

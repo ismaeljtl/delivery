@@ -3,12 +3,13 @@
   <div class="perfil">
     <h1>Aqui va el perfil</h1>
   </div>
+
   <div class="menu">
-    <button class="btn btn-menu" routerLink="/menu"><h2>MENÚ</h2></button>
+    <button class="btn btn-light" routerLink="/menu"><h2>MENÚ</h2></button>
   </div>
   
   <div class="pedidos">
-    <button class="btn btn-pedidos" routerLink="/pedidos">
+    <button class="btn btn-dark" routerLink="/pedidos">
       <h2>PEDIDOS</h2>
       <div class="alerta">
         <ng-template [ngIf]="pedidos === 0" [ngIfElse]="alertRed">
@@ -19,6 +20,10 @@
         </ng-template>
       </div>
     </button>
+  </div>
+
+  <div class="zonas">
+    <button class="btn btn-light" routerLink="/zonas"><h2>ZONAS</h2></button>
   </div>
 
 </div>

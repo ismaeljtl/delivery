@@ -3,7 +3,8 @@
   display: flex;
   flex-direction: column;
 }
+
 .contenedor {
-  flex: 1;
-  
+  flex: 1;  
+  background-color: #f4f4f4;
 }

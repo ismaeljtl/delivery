@@ -7,8 +7,10 @@ import { LoginModule } from './login/login.module';
 import { IndexModule } from './index/index.module';
 import { PedidosModule } from './pedidos/pedidos.module';
 import { MenuModule } from './menu/menu.module';
+import { ZonasModule } from './zonas/zonas.module';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
+
 
 @NgModule({
   declarations: [
@@ -22,6 +24,7 @@ import { FooterComponent } from './footer/footer.component';
     IndexModule,
     MenuModule,
     PedidosModule,
+    ZonasModule,
     AppRoutingModule,
   ],
   providers: [],

@@ -11,5 +11,5 @@
 
 /* Familia de fuente para toda la aplicacion */
 * {
-    font-family: Avenir LT Std !important;
+    font-family: Avenir LT Std, 'Material Icons';
 }
