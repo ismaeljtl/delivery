@@ -42,3 +42,7 @@
 .material-icons {
     font-size: 16px;
 }
+
+.invalid-feedback {
+    display: block;
+}
