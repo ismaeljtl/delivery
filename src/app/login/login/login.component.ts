@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { User } from '../../classes/user';
+import { User } from '../user';
 import { LoginService } from '../login.service';
 import { Router } from '@angular/router';
 
@@ -11,7 +11,10 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
+  // variable de tipo usuario inicializado
   user = new User(null, '', '', null, null);
+
+  // variable para notificar mensajes de error
   mensaje = '';
 
   constructor(private loginService: LoginService, private router: Router) { }
