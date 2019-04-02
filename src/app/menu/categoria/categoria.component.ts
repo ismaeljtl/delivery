@@ -1,4 +1,7 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { PRODUCTOS } from '../mock-productos';
+import { MenuService } from '../menu.service';
+import { Categoria } from '../categoria';
 
 @Component({
   selector: 'app-categoria',
@@ -13,36 +16,36 @@ export class CategoriaComponent implements OnInit {
   // variable del input del modal
   inputCategoria = '';
 
-  // TODO: borrar estas categorias
-  // categorias cargadas de antemano para testeo
-  categorias = [
-    'pizza',
-    'hamburguesa',
-    'sandwich'
-  ];
+  // variable que contiene las categorias. (Luego vendran de un servicio)
+  categorias = PRODUCTOS;
 
-  constructor() { }
+  constructor(private menuService: MenuService) { }
 
   ngOnInit() {
   }
 
-  // True si el item no existe en el arreglo de categorias; 
+  // TODO: Remover este metodo. Sirve para probar la comunicacion entre componentes a traves de un servicio
+  public log(productos) {
+    this.menuService.ejemplo(productos);
+  }
+
+  // True si el item no existe en el arreglo de categorias;
   // False si ya la categoria esta en el array de categorias
   public comprobarCategorias(item: string) {
-    for (let index = 0; index < this.categorias.length; index++) {
-      if (item.toUpperCase() === this.categorias[index].toUpperCase()) {
+    for (const index of this.categorias) {
+      if (item.toUpperCase() === index.nombre.toUpperCase()) {
         return false;
       }
     }
     return true;
   }
 
-  // Metodo para agregar nueva categoria
+  // // Metodo para agregar nueva categoria
   public agregarCategoria(){
     if (this.inputCategoria !== '') {
       if (this.comprobarCategorias(this.inputCategoria)) {
-        // agregamos categoria
-        this.categorias.push(this.inputCategoria);
+        // agregamos la categoria
+        this.categorias.push(new Categoria(this.inputCategoria, []) );
         // cerramos el modal
         $('#exampleModal').modal('hide');
 
@@ -57,7 +60,7 @@ export class CategoriaComponent implements OnInit {
     }
   }
 
-  // Metodo para abrir modal y colocar el input en modo 'focus'
+  // Metodo para abrir el modal y colocar el input en modo 'focus'
   public abrirModal(){
     $('#exampleModal').on('shown.bs.modal', function () {
       $('#inputCategoria').trigger('focus');

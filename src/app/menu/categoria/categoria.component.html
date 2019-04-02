@@ -3,7 +3,8 @@
 
 <button *ngFor="let categoria of categorias" 
         type="button" 
-        class="btn btn-primary itemCategoria">{{ categoria }}
+        class="btn btn-primary itemCategoria"
+        (click)="log(categoria)">{{ categoria.nombre }}
 </button>
 
   
@@ -42,54 +43,6 @@
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
           <button type="submit" class="btn btn-primary submit">Agregar</button>
         </form>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<!-- Items -->
-<h5 class="titulo">Productos</h5>
-
-<div class="fluid-container">
-  <div class="row">
-    <div class="col-4">
-      <div class="card">
-        <div class="imgContainer">
-          <img src="../../../assets/img/card.png" alt="Imagen de fondo">
-          <h3 class="titulo">Margarita</h3>
-        </div>
-      </div>
-      <div class="cardBody">
-        <h6><strong>Precio:</strong> 15.000 Puntos </h6>
-        <!-- FIXME: hacer que el logo de agregar quede al final -->
-        <i class="material-icons">add_circle_outline</i>
-      </div>
-    </div>
-    <div class="col-4">
-      <div class="card">
-        <div class="imgContainer">
-          <img src="../../../assets/img/card.png" alt="Imagen de fondo">
-          <h3 class="titulo">Margarita</h3>
-        </div>
-      </div>
-      <div class="cardBody">
-        <h6><strong>Precio:</strong> 15.000 Puntos </h6>
-        <!-- FIXME: hacer que el logo de agregar quede al final -->
-        <i class="material-icons">add_circle_outline</i>
-      </div>
-    </div>
-    <div class="col-4">
-      <div class="card">
-        <div class="imgContainer">
-          <img src="../../../assets/img/card.png" alt="Imagen de fondo">
-          <h3 class="titulo">Margarita</h3>
-        </div>
-      </div>
-      <div class="cardBody">
-        <h6><strong>Precio:</strong> 15.000 Puntos </h6>
-        <!-- FIXME: hacer que el logo de agregar quede al final -->
-        <i class="material-icons">add_circle_outline</i>
       </div>
     </div>
   </div>

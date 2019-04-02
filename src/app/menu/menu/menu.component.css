@@ -45,3 +45,18 @@
 .material-icons {
     font-size: 16px;
 }
+
+.add {
+    font-size: 32px;
+}
+.agregar {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    bottom: 3.5rem;
+    right: 0;
+    margin: 0 1rem 0 0;
+}
