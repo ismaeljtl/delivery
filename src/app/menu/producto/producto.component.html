@@ -4,22 +4,21 @@
   <div class="row">
 
     <ng-container *ngFor="let categoria of productos">
-      <ng-container *ngIf="categoria.nombre === 'Pizza'">
+      <ng-container *ngIf="categoria.nombre === categoriaSeleccionada">
         <ng-container *ngFor="let producto of categoria.productos">
           <div class="col-4">
             <div class="card">
               <div class="imgContainer">
                 <img src="../../../assets/img/card.png" alt="Imagen de fondo">
                 <div class="iconContainer">
-                  <i class="material-icons edit" data-toggle="tooltip" data-placement="top" title="Editar">edit</i>
+                  <i class="material-icons edit" data-toggle="tooltip" data-placement="top" title="Editar" (click)="openModal()">edit</i>
                   <i class="material-icons delete" data-toggle="tooltip" data-placement="top" title="Eliminar">delete</i>
                 </div>
-                <h3 class="titulo">{{producto.nombre}}</h3>
+                <h4 class="titulo">{{producto.nombre}}</h4>
               </div>
             </div>
             <div class="cardBody">
               <h6><strong>Precio:</strong> {{ producto.precio | number}} Puntos</h6>
-              <i class="material-icons">add_circle_outline</i>
             </div>
           </div>
         </ng-container>

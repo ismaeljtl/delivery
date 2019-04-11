@@ -40,6 +40,138 @@
 
 </div>
 
-<button class="btn btn-primary agregar">
+<button class="btn btn-primary agregar" data-toggle="modal" data-target="#modalProducto">
   <i class="material-icons add">add</i>
 </button>
+
+
+<!-- Modal de productos -->
+<div class="modal fade" id="modalProducto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Agregar Producto</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- formulario producto -->
+          <form>
+
+            <div class="form-group">
+              <label for="exampleFormControlInput1">Nombre</label>
+              <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Indique el nombre del producto">
+            </div>
+
+            <div class="form-group">
+              <label for="exampleFormControlSelect1">Estado</label>
+              <select class="form-control" id="exampleFormControlSelect1">
+              <option disabled selected>Seleccione una opcion</option>
+              <option>Activo</option>
+              <option>Inactivo</option>
+              <option>Agotado</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="exampleFormControlInput2">Ingredientes</label>
+
+              <div class="input-group mb-3">
+                <select class="form-control producto" id="exampleFormControlInput2">
+                  <option disabled selected hidden value="">Seleccione un ingrediente</option>
+                  <ng-container *ngFor="let ingrediente of ingredientes">
+                    <option disabled>
+                      {{ ingrediente.categoria }}
+                    </option>
+                    <option *ngFor="let item of ingrediente.ingredientes" 
+                      [value]="item.nombre">
+                      {{ item.nombre }}
+                    </option>
+                  </ng-container>
+                </select>
+              </div>
+
+              <!-- TODO mejorar este estilo de botones juntos -->
+              <button class="btn btn-primary ingrediente col-6"> Agregar ingrediente</button>
+              <button class="btn btn-secondary ingrediente col-6" data-toggle="modal" data-target="#modalIngrediente"> Registrar ingrediente</button>
+            </div>
+
+            <div class="form-group">
+              <label for="exampleFormControlTextarea1">Descripcion</label>
+              <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="exampleFormControlInput1">Precio</label>
+              <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Indique el nombre del producto">
+            </div>
+
+            <div class="form-group">
+              <label for="exampleFormControlInput1">Foto</label> <br>
+              <button type="button"  class="btn btn-primary">Subir archivo</button>
+            </div>
+            
+          </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de ingredientes -->
+<div class="modal fade" id="modalIngrediente" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Registrar nuevo ingrediente</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">  
+
+        <div class="form-group">
+          <label for="exampleFormControlInput2">Categorias</label>
+          <div class="input-group mb-3">
+            <select class="form-control" id="exampleFormControlInput2">
+              <option disabled selected>Seleccione una categoria</option>
+              <option>Tipo de masa</option>
+              <option>Extras</option>
+            </select>
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary" type="button" id="prompt1">
+              <i class="material-icons">add_circle_outline</i>
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="exampleFormControlInput2">Ingredientes</label>
+          <div class="input-group mb-3">
+            <select class="form-control" id="exampleFormControlInput2">
+              <option disabled selected>Seleccione un ingrediente</option>
+              <option>Tomate</option>
+              <option>Cebolla</option>
+              <option>Lechuga</option>
+            </select>
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary" type="button" id="prompt2">
+              <i class="material-icons">add_circle_outline</i>
+              </button>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>

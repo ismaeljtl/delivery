@@ -1,3 +1,46 @@
-<p>
-  pedidos works!
-</p>
+<div class="container-fluid">
+
+  <div class="contenedor row header">
+    <div class="col-2 btn-container atras">
+      <button type="button" class="btn btn-outline-primary" (click)="back()">
+          <!-- Se usan Material Icons. El CDN esta en index.html -->
+          <i class="material-icons">arrow_back_ios</i>
+          Atrás
+      </button>
+    </div>
+
+    <div class="col-8 titulo">
+        <h2>PEDIDOS</h2>
+    </div>
+    
+    <div class="col-2 btn-container filtrar">
+      <!-- Filtro -->
+      <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Filtrar
+        </button>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+      </div>
+      <!-- Historial -->
+      <button class="btn btn-primary historial">Historial</button>
+    </div>
+    
+  </div>
+
+  <div class="contenedor row">
+
+    <div class="col-8 lista">
+      <app-lista-productos></app-lista-productos>
+    </div>
+    
+    <div class="col-4 datos">
+      <app-datos-producto></app-datos-producto>
+    </div>
+  
+  </div>
+
+</div>

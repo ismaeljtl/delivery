@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { Producto } from './producto';
 
 @Injectable({
@@ -6,10 +6,17 @@ import { Producto } from './producto';
 })
 export class MenuService {
 
-  constructor() { }
+  // parametro de tipo eventEmitter para ue cuando ocurra un evento se realice cierta accion
+  public categoriaSeleccionada: EventEmitter<string>;
 
-  public ejemplo(productos: Producto): Producto {
-    console.log(productos);
-    return productos;
+  constructor() {
+    // inicializamos la variable que servira para informar los eventos
+    this.categoriaSeleccionada = new EventEmitter<string>();
   }
+
+  // con este metodo enviamos la categoria recibida a otro componente a traves de un evento
+  levantarEvento(categoria: string) {
+    this.categoriaSeleccionada.emit(categoria);
+  }
+
 }

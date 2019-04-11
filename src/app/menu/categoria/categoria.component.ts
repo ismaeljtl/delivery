@@ -16,7 +16,8 @@ export class CategoriaComponent implements OnInit {
   // variable del input del modal
   inputCategoria = '';
 
-  // variable que contiene las categorias. (Luego vendran de un servicio)
+  // TODO: cambiar mocks por servicio HTTP
+  // mmock de categorias categorias
   categorias = PRODUCTOS;
 
   constructor(private menuService: MenuService) { }
@@ -24,9 +25,11 @@ export class CategoriaComponent implements OnInit {
   ngOnInit() {
   }
 
-  // TODO: Remover este metodo. Sirve para probar la comunicacion entre componentes a traves de un servicio
-  public log(productos) {
-    this.menuService.ejemplo(productos);
+  // cuando se clickea una categoria debemos filtrar los productos segun esta categoria
+  // este metodo que retorna la categoria clickeada a menu.service
+  public getCategoria(categoria: Categoria) {
+    // console.log(categoria.nombre);
+    this.menuService.levantarEvento(categoria.nombre);
   }
 
   // True si el item no existe en el arreglo de categorias;
@@ -41,7 +44,7 @@ export class CategoriaComponent implements OnInit {
   }
 
   // // Metodo para agregar nueva categoria
-  public agregarCategoria(){
+  public agregarCategoria() {
     if (this.inputCategoria !== '') {
       if (this.comprobarCategorias(this.inputCategoria)) {
         // agregamos la categoria
@@ -61,8 +64,8 @@ export class CategoriaComponent implements OnInit {
   }
 
   // Metodo para abrir el modal y colocar el input en modo 'focus'
-  public abrirModal(){
-    $('#exampleModal').on('shown.bs.modal', function () {
+  public abrirModal() {
+    $('#exampleModal').on('shown.bs.modal', () => {
       $('#inputCategoria').trigger('focus');
     });
   }

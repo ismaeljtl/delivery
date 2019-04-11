@@ -20,10 +20,6 @@
     justify-content: flex-start;
 }
 
-.btn {
-    border-radius: 2rem;
-}
-
 .btn-outline-primary {
     display: flex;
     flex-direction: row;
@@ -52,11 +48,25 @@
 .agregar {
     width: 50px;
     height: 50px;
+    border-radius: 2rem;
     display: flex;
     justify-content: center;
     align-items: center;
     position: fixed;
-    bottom: 3.5rem;
+    bottom: 1rem;
+    z-index: 1;
     right: 0;
     margin: 0 1rem 0 0;
+}
+
+select option:disabled {
+    background-color: #dadada;
+    font-weight: lighter;
+}
+
+.categoria {
+    margin-right: 0.5rem;
+}
+.producto {
+    margin-left: 0.5rem;
 }
