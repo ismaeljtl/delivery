@@ -25,6 +25,20 @@ export class CategoriaComponent implements OnInit {
   ngOnInit() {
   }
 
+  // Metodo que elimina una categoria y sus elementos
+  public deleteCategoria(arrayCategorias, categoriaSeleccionada) {
+    const eliminar = confirm('¿Seguro que deseas eliminar esta categoria?');
+    if (eliminar) {
+      for (const item of arrayCategorias) {
+        if (item.nombre === categoriaSeleccionada.nombre) {
+          const elem = document.getElementById(item.nombre);
+          elem.parentNode.removeChild(elem);
+          arrayCategorias.splice(arrayCategorias.indexOf(item), 1);
+        }
+      }
+    }
+  }
+
   // cuando se clickea una categoria debemos filtrar los productos segun esta categoria
   // este metodo que retorna la categoria clickeada a menu.service
   public getCategoria(categoria: Categoria) {

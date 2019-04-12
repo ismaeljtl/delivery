@@ -3,11 +3,14 @@
 
 <button *ngFor="let categoria of categorias" 
         type="button" 
+        id = "{{ categoria.nombre }}"
         class="btn btn-primary itemCategoria"
         (click)="getCategoria(categoria)">{{ categoria.nombre }}
+        
+        <!-- Boton para eliminar categoria -->
+        <button class="btn eliminar-categoria" (click)="deleteCategoria(categorias, categoria)">X</button>
 </button>
 
-  
   <!-- Button trigger modal -->
 <button type="button" 
         class="btn btn-primary agregar" 

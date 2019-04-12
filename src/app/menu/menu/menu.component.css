@@ -16,6 +16,10 @@
     align-items: center;
 }
 
+.btn {
+    border-radius: 2rem;
+}
+
 .atras {
     justify-content: flex-start;
 }

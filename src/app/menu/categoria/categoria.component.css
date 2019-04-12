@@ -7,6 +7,7 @@
 }
 
 .itemCategoria {
+    position: relative;
     margin: 0 1rem 1rem 0;
 }
 
@@ -26,4 +27,21 @@
 
 .itemCategoria:focus {
     background-color: #0062cc;
+}
+
+.eliminar-categoria {
+    display: none;
+}
+.itemCategoria:hover .eliminar-categoria {
+    display: inline-block;
+    position: absolute;
+    background-color: #25262d;
+    color: white;
+    padding: 0;
+    border-radius: 2rem;
+    width: 20px;
+    height: 20px;
+    top: -0.7rem;
+    right: -0.7rem;
+    font-size: small;
 }
