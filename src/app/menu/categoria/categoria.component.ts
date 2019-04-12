@@ -25,14 +25,20 @@ export class CategoriaComponent implements OnInit {
   ngOnInit() {
   }
 
-  // Metodo que elimina una categoria y sus elementos
+  // Un usuario podria querer eliminar una categoria y todos sus elementos, por eso este metodo
   public deleteCategoria(arrayCategorias, categoriaSeleccionada) {
+    // primero debemos saber si el usuario esta de acuerdo con eliminar la categoria
     const eliminar = confirm('¿Seguro que deseas eliminar esta categoria?');
+
     if (eliminar) {
+      // Para eliminar la categoria debemos recorrer el Array de Categorias y eliminar el objeto completo
       for (const item of arrayCategorias) {
+        // localizamos el objeto de la categoria a eliminar
         if (item.nombre === categoriaSeleccionada.nombre) {
+          // Eliminamos su elemento HTML
           const elem = document.getElementById(item.nombre);
           elem.parentNode.removeChild(elem);
+          // Eliminamos el objeto JS
           arrayCategorias.splice(arrayCategorias.indexOf(item), 1);
         }
       }
