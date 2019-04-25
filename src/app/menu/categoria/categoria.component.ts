@@ -29,7 +29,6 @@ export class CategoriaComponent implements OnInit {
   public deleteCategoria(arrayCategorias, categoriaSeleccionada) {
     // primero debemos saber si el usuario esta de acuerdo con eliminar la categoria
     const eliminar = confirm('¿Seguro que deseas eliminar esta categoria?');
-
     if (eliminar) {
       // Para eliminar la categoria debemos recorrer el Array de Categorias y eliminar el objeto completo
       for (const item of arrayCategorias) {

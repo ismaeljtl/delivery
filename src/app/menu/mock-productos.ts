@@ -62,19 +62,25 @@ export const PRODUCTOS: Categoria[] = [
                                 "_id": "5c9ab538b13e55145f588595",
                                 "ingrediente_id": "5c9ab1828d194d132c208798",
                                 "obligatorio": true,
-                                "preseleccionado": true
+                                "preseleccionado": true,
+                                "nombre": "Queso Parmesano",
+                                "precio": "500"
                             },
                             {
                                 "_id": "5c9ab538b13e55145f588594",
                                 "ingrediente_id": "5c9ab2c84ca610132d1f17bf",
                                 "obligatorio": true,
-                                "preseleccionado": true
+                                "preseleccionado": true,
+                                "nombre": "Tomate",
+                                "precio": "200"
                             },
                             {
                                 "_id": "5c9ab538b13e55145f588593",
                                 "ingrediente_id": "5c9ab2fa8d194d132c208799",
                                 "obligatorio": true,
-                                "preseleccionado": true
+                                "preseleccionado": true,
+                                "nombre": "Cebolla",
+                                "precio": "100"
                             }
                         ],
                         "_id": "5c9ab538b13e55145f588592",

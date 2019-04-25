@@ -4,6 +4,7 @@
 
 .card {
     border: none;
+    cursor: pointer;
 }
 
 .card-body {

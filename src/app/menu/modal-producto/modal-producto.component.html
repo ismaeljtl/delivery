@@ -1,0 +1,131 @@
+<!-- formulario producto -->
+<form [formGroup]="formProductos" (ngSubmit)="onSubmit()">
+
+
+  <div class="modal fade" id="modalProducto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Agregar Producto</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+              <div class="form-group">
+                <label>Nombre</label>
+                <input type="text" formControlName="nombre" class="form-control" placeholder="Indique el nombre del producto">
+              </div>
+
+              <div class="form-group">
+                <label>Categoría a la que pertenecerá el producto</label>
+                <select class="form-control" formControlName="categoriaProducto">
+                  <option disabled selected>Seleccione una opción</option>           
+                  <option *ngFor="let categoria of categorias" 
+                          value="{{ categoria.nombre }}">
+                          {{ categoria.nombre }}
+                  </option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label>Estado</label>
+                <select class="form-control" formControlName="estado">
+                  <option disabled selected>Seleccione una opción</option>
+                  <option>Activo</option>
+                  <option>Inactivo</option>
+                  <option>Agotado</option>
+                </select>
+              </div>
+
+              <div class="form-group form-ingrediente" formGroupName="ingrediente">
+                <label><strong>Ingredientes del producto</strong></label>
+
+                <div class="row">
+                  <div class="col-6">
+                    <label>Categoría</label>
+                    <input type="text" formControlName="categoriaIngrediente" class="form-control" placeholder="Nombre de la categoría">
+                  </div>
+                  <div class="col-6">
+                    <label>Tipo de selección</label>
+                    <select class="form-control" formControlName="tipo">
+                      <option disabled selected>Seleccione una opción</option>
+                      <option>Selección simple</option>
+                      <option>Selección múltiple</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-6">
+                    <label>Ingredientes de la categoría</label>
+                  </div>
+                  <div class="col-6">
+                    <button type="button" class="btn btn-primary">Agregar ingrediente</button>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-6">
+                    <input type="text" formControlName="nombre" class="form-control" placeholder="Nombre del ingrediente">
+                  </div>
+                  <div class="col-6">
+                    <input type="number" formControlName="precio" class="form-control" placeholder="Precio del ingrediente">                  
+                  </div>
+                </div>
+
+                <div class="ingredientesCategoria">
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" formControlName="opciones" name="opciones" type="radio" id="inlineCheckbox1" value="Obligatorio">
+                      <label class="form-check-label" for="inlineCheckbox1">Obligatorio</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" formControlName="opciones" name="opciones" type="radio" id="inlineCheckbox2" value="Preseleccionado">
+                      <label class="form-check-label" for="inlineCheckbox2">Preseleccionado</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" formControlName="agotado" type="checkbox" value="agotado">
+                      <label class="form-check-label" for="exampleRadios1">Agotado</label>
+                    </div>
+                </div>
+
+                <button type="button" class="btn btn-primary">Agregar nueva categoría</button>
+                
+              </div>
+
+              <div class="form-group">
+                <label>Descripcion</label>
+                <textarea formControlName="descripcion" class="form-control" rows="3" placeholder="Indique una descripción del producto"></textarea>
+              </div>
+
+              <div class="form-group">
+                <label>Precio</label>
+                <input type="number" formControlName="precio" class="form-control" placeholder="Indique el precio general del producto">
+              </div>
+
+              <div class="form-group">
+                  <label>Foto</label> 
+                <div class="custom-file">
+                  <input type="file" formControlName="foto" class="custom-file-input" id="inputFile" aria-describedby="inputGroupFileAddon04">
+                  <label class="custom-file-label" for="inputFile">Subir archivo</label>
+                </div>
+              </div>
+              
+        </div>
+        <div class="modal-footer">
+          <div>
+            <button type="button" class="btn btn-danger">Deshabilitar</button>
+          </div>
+          <div>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            <button type="submit"  class="btn btn-primary submit">Guardar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</form>
