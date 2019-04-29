@@ -1,3 +1,50 @@
-<h3>SIN DATOS</h3>
+<ng-container *ngIf="pedido === null; else informacion">
+  <div class="vacio">
+    <h3>SIN DATOS</h3>
+    <h5>Seleccione un pedido para ver información sobre este</h5>
+  </div>
+</ng-container>
 
-<h5>Seleccione un pedido para ver información sobre este</h5>
+<ng-template #informacion>
+    <div class="informacion">
+      <h4>Usuario: <strong> {{ pedido.cliente_username }} </strong></h4>
+      <br>
+
+      <h6> <strong>Direccion:</strong> {{ pedido.direccion }}</h6>
+      <h6>Monto total: <strong> {{ calcMonto(pedido) | number }} Pts </strong></h6>
+      <h6>Fecha y hora: <strong> {{ pedido.createdAt  | date:'medium' }} </strong></h6>
+      <h6>Cantidad de producto(s) del pedido: <strong>{{ pedido.producto_pedido.length }}</strong></h6>
+      <h6>Estado del pedido: <strong>{{ pedido.estado }}</strong></h6>
+      
+      <ng-container *ngIf="pedido.observaciones">
+        <h6><strong>Observaciones del pedido:</strong></h6>
+        <h6>{{ pedido.observaciones }}</h6>
+      </ng-container>
+
+      <ng-container *ngIf="pedido.alergias">
+        <h6><strong>Alergias del pedido</strong></h6>
+        <h6>{{ pedido.alergias }}</h6>
+      </ng-container>
+      
+      <br>
+
+      <div *ngFor="let producto of pedido.producto_pedido; let i = index" [attr.data-index]="i">
+        <h5><strong>Datos del producto n° {{ i+1 }}</strong></h5>
+        <h6>Nombre del producto: <strong>{{ producto.nombre }}</strong></h6>
+        <div *ngFor="let componente of producto.componente">
+          <h6><strong>{{ componente.nombre }}</strong></h6>
+          <ul>
+            <li *ngFor="let ingrediente of componente.ingredientes">
+              <h6>{{ ingrediente.nombre }}</h6>
+            </li>
+          </ul>
+        </div>
+        
+        <h6>Monto: <strong>{{ producto.precio | number }}</strong></h6>
+      </div>
+
+      <br>
+
+      <h5>Monto total: <strong>{{ calcMonto(pedido) | number }}</strong></h5>
+    </div>
+</ng-template>

@@ -27,3 +27,26 @@ p {
 .material-icons {
     color: #d8d8d8;
 }
+
+.icon-alert {
+    color: #FE4C4C;
+}
+
+.input-group {
+    margin-bottom: .5rem !important;
+}
+
+.btn-outline-primary {
+    color: #298FFC;
+    border-color: #298FFC;
+    background-color: #FFFFFF;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+    padding: .20rem .75rem;
+}
+.btn-outline-primary i {
+    color: #298FFC;
+    margin-left: .5rem;
+}

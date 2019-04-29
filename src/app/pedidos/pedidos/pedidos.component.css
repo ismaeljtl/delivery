@@ -72,10 +72,9 @@
 
 .datos {
     background-color: #9A99FF;
-    display: flex;
-    text-align: center;
-    align-items: center;
     color: #6B6BAE;
+    overflow-y: scroll;
+    height: 100%;
 }
 
 ::-webkit-scrollbar {

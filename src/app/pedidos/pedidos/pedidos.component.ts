@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
+import { PedidosService } from '../pedidos.service';
 
 @Component({
   selector: 'app-pedidos',
@@ -8,7 +9,7 @@ import { Location } from '@angular/common';
 })
 export class PedidosComponent implements OnInit {
 
-  constructor(private _location: Location) { }
+  constructor(private _location: Location, private pedidosService: PedidosService) { }
 
   ngOnInit() {
   }
@@ -16,6 +17,10 @@ export class PedidosComponent implements OnInit {
   // Metodo para navegar a la vista anterior
   public back() {
     this._location.back();
+  }
+
+  getFiltro(valor) {
+    this.pedidosService.levantarEventoGetFiltro(valor);
   }
 
 }

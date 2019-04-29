@@ -20,12 +20,15 @@
           Filtrar
         </button>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" href="#">En Preparación</a>
-          <a class="dropdown-item" href="#">En envío</a>
-          <a class="dropdown-item" href="#">Entregado</a>
-          <a class="dropdown-item" href="#">Rechazado</a>
+          <a class="dropdown-item" (click)="getFiltro('mostrar todos')">Mostrar Todos</a>
+          <a class="dropdown-item" (click)="getFiltro('en preparacion')">En Preparación</a>
+          <a class="dropdown-item" (click)="getFiltro('en envio')">En envío</a>
+          <a class="dropdown-item" (click)="getFiltro('entregado')">Entregado</a>
+          <a class="dropdown-item" (click)="getFiltro('rechazado')">Rechazado</a>
         </div>
       </div>
+
+
       <!-- Historial -->
       <button class="btn btn-primary historial">Historial</button>
     </div>

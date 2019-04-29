@@ -1,267 +1,379 @@
-<div class="pedido row">
+<ng-container *ngFor="let pedido of pedidos">
 
-  <div class="col-3">
-    <strong><p class="title">Usuario</p></strong>
-    <p class="description">Username</p>
+    <ng-container [ngSwitch]="filtroSeleccionado">
+        <ng-container *ngSwitchCase="'mostrar todos'">
+            
+            <div class="pedido row">
 
-    <strong><p class="title">Fecha y hora</p></strong>
-    <p class="description">19/02/2019 - 15:00h</p>
-  </div>
+              <div class="col-3">
+                <strong><p class="title">Usuario</p></strong>
+                <p class="description">{{ pedido.cliente_username }}</p>
 
-  <div class="col-3">
-    <strong><p class="title">Monto</p></strong>
-    <p class="description">15.000,00 Pts</p>
+                <strong><p class="title">Fecha y hora</p></strong>
+                <p class="description">{{ pedido.createdAt | date:'medium' }}</p>
+              </div>
 
-    <strong><p class="title">Referencia</p></strong>
-    <p class="description">02023134832</p>
-  </div>
+              <!-- TODO: Hablar de esto con Gian y Ramon -->
+              <div class="col-3">
+                <strong><p class="title">Monto</p></strong>
+                <p class="description"> {{ calcMonto(pedido) | number }} Pts</p>
 
-  <div class="col-3">
-    <strong><p class="title">Datos del pedido</p></strong>
-    <div class="alergia">
-        <p class="description">Alergia</p>
-        <i class="material-icons">brightness_1</i>
-    </div>
-    <div class="observaciones">
-      <p class="description">Observaciones</p>
-      <i class="material-icons">visibility</i>
-    </div>
-    
-  </div>
+                <strong><p class="title">Referencia</p></strong>
+                <p class="description">{{ pedido.referencia }}</p>
+              </div>
 
-  <div class="col-3">
-    <strong><p class="title">Actualizar estado</p></strong>
-    <div class="input-group mb-3">
-      <select class="custom-select" id="inputGroupSelect01">
-        <option selected>Seleccionar</option>
-        <option value="1">One</option>
-        <option value="2">Two</option>
-        <option value="3">Three</option>
-      </select>
-    </div>
-  </div>
+              <div class="col-3">
+                <strong><p class="title">Datos del pedido</p></strong>
+                <div class="alergia">
+                    <p class="description">Alergia</p>
+                    <i class="material-icons">brightness_1</i>
+                </div>
+                <div class="observaciones">
+                  <p class="description">Observaciones</p>
+                  <ng-container *ngIf="pedido.observaciones; else alerta">
+                    <i class="material-icons icon-alert">visibility</i>
+                  </ng-container>
+                  <ng-template #alerta>
+                      <i class="material-icons">visibility</i>
+                  </ng-template>
+                  
+                </div>
+                
+              </div>
 
-</div>
+              <div class="col-3 text-center">
+                <strong><p class="title">Actualizar estado</p></strong>
+                <div class="input-group mb-3">
+                  <select class="custom-select" id="inputGroupSelect01" (change)="setEstado(pedido, $event.target.value)">
+                    <option selected hidden disabled>Seleccionar</option>
+                    <option value="en preparacion" [selected]="pedido.estado === 'en preparacion'">En Preparacion</option>
+                    <option value="en envio" [selected]="pedido.estado === 'en envio'">En Envío</option>
+                    <option value="entregado" [selected]="pedido.estado === 'entregado'">Entregado</option>
+                    <option value="rechazado" [selected]="pedido.estado === 'rechazado'">Rechazado</option>
+                  </select>
+                </div>
 
+                <button type="button" class="btn btn-outline-primary" (click)="getPedido(pedido)">
+                  Ver más...<i class="material-icons">trending_flat</i>
+                </button>  
+              </div>
 
-<!-- TODO: Borrar todo esto -->
-<div class="pedido row">
+            </div>
 
-  <div class="col-3">
-    <strong><p class="title">Usuario</p></strong>
-    <p class="description">Username</p>
+        </ng-container>
+      
+        <ng-container *ngSwitchCase="'en preparacion'">
+          <ng-container *ngIf="pedido.estado === 'en preparacion'">
+            
+            <div class="pedido row">
 
-    <strong><p class="title">Fecha y hora</p></strong>
-    <p class="description">19/02/2019 - 15:00h</p>
-  </div>
+              <div class="col-3">
+                <strong><p class="title">Usuario</p></strong>
+                <p class="description">{{ pedido.cliente_username }}</p>
 
-  <div class="col-3">
-    <strong><p class="title">Monto</p></strong>
-    <p class="description">15.000,00 Pts</p>
+                <strong><p class="title">Fecha y hora</p></strong>
+                <p class="description">{{ pedido.createdAt | date:'medium' }}</p>
+              </div>
 
-    <strong><p class="title">Referencia</p></strong>
-    <p class="description">02023134832</p>
-  </div>
+              <!-- TODO: Hablar de esto con Gian y Ramon -->
+              <div class="col-3">
+                <strong><p class="title">Monto</p></strong>
+                <p class="description"> {{ calcMonto(pedido) | number }} Pts</p>
 
-  <div class="col-3">
-    <strong><p class="title">Datos del pedido</p></strong>
-    <div class="alergia">
-        <p class="description">Alergia</p>
-        <i class="material-icons">brightness_1</i>
-    </div>
-    <div class="observaciones">
-      <p class="description">Observaciones</p>
-      <i class="material-icons">visibility</i>
-    </div>
-    
-  </div>
+                <strong><p class="title">Referencia</p></strong>
+                <p class="description">{{ pedido.referencia }}</p>
+              </div>
 
-  <div class="col-3">
-    <strong><p class="title">Actualizar estado</p></strong>
-    <div class="input-group mb-3">
-      <select class="custom-select" id="inputGroupSelect01">
-        <option selected>Seleccionar</option>
-        <option value="1">One</option>
-        <option value="2">Two</option>
-        <option value="3">Three</option>
-      </select>
-    </div>
-  </div>
+              <div class="col-3">
+                <strong><p class="title">Datos del pedido</p></strong>
+                <div class="alergia">
+                    <p class="description">Alergia</p>
+                    <i class="material-icons">brightness_1</i>
+                </div>
+                <div class="observaciones">
+                  <p class="description">Observaciones</p>
+                  <ng-container *ngIf="pedido.observaciones; else alerta">
+                    <i class="material-icons icon-alert">visibility</i>
+                  </ng-container>
+                  <ng-template #alerta>
+                      <i class="material-icons">visibility</i>
+                  </ng-template>
+                  
+                </div>
+                
+              </div>
 
-</div>
-<div class="pedido row">
+              <div class="col-3 text-center">
+                <strong><p class="title">Actualizar estado</p></strong>
+                <div class="input-group mb-3">
+                  <select class="custom-select" id="inputGroupSelect01" (change)="setEstado(pedido, $event.target.value)">
+                    <option selected hidden disabled>Seleccionar</option>
+                    <option value="en preparacion" [selected]="pedido.estado === 'en preparacion'">En Preparacion</option>
+                    <option value="en envio" [selected]="pedido.estado === 'en envio'">En Envío</option>
+                    <option value="entregado" [selected]="pedido.estado === 'entregado'">Entregado</option>
+                    <option value="rechazado" [selected]="pedido.estado === 'rechazado'">Rechazado</option>
+                  </select>
+                </div>
 
-  <div class="col-3">
-    <strong><p class="title">Usuario</p></strong>
-    <p class="description">Username</p>
+                <button type="button" class="btn btn-outline-primary" (click)="getPedido(pedido)">
+                  Ver más...<i class="material-icons">trending_flat</i>
+                </button>  
+              </div>
 
-    <strong><p class="title">Fecha y hora</p></strong>
-    <p class="description">19/02/2019 - 15:00h</p>
-  </div>
+            </div>
 
-  <div class="col-3">
-    <strong><p class="title">Monto</p></strong>
-    <p class="description">15.000,00 Pts</p>
+          </ng-container>
+        </ng-container>
+        
+        <ng-container *ngSwitchCase="'en envio'">
+          <ng-container *ngIf="pedido.estado === 'en envio'">
+      
+            <div class="pedido row">
 
-    <strong><p class="title">Referencia</p></strong>
-    <p class="description">02023134832</p>
-  </div>
+              <div class="col-3">
+                <strong><p class="title">Usuario</p></strong>
+                <p class="description">{{ pedido.cliente_username }}</p>
 
-  <div class="col-3">
-    <strong><p class="title">Datos del pedido</p></strong>
-    <div class="alergia">
-        <p class="description">Alergia</p>
-        <i class="material-icons">brightness_1</i>
-    </div>
-    <div class="observaciones">
-      <p class="description">Observaciones</p>
-      <i class="material-icons">visibility</i>
-    </div>
-    
-  </div>
+                <strong><p class="title">Fecha y hora</p></strong>
+                <p class="description">{{ pedido.createdAt | date:'medium' }}</p>
+              </div>
 
-  <div class="col-3">
-    <strong><p class="title">Actualizar estado</p></strong>
-    <div class="input-group mb-3">
-      <select class="custom-select" id="inputGroupSelect01">
-        <option selected>Seleccionar</option>
-        <option value="1">One</option>
-        <option value="2">Two</option>
-        <option value="3">Three</option>
-      </select>
-    </div>
-  </div>
+              <!-- TODO: Hablar de esto con Gian y Ramon -->
+              <div class="col-3">
+                <strong><p class="title">Monto</p></strong>
+                <p class="description"> {{ calcMonto(pedido) | number }} Pts</p>
 
-</div>
-<div class="pedido row">
+                <strong><p class="title">Referencia</p></strong>
+                <p class="description">{{ pedido.referencia }}</p>
+              </div>
 
-  <div class="col-3">
-    <strong><p class="title">Usuario</p></strong>
-    <p class="description">Username</p>
+              <div class="col-3">
+                <strong><p class="title">Datos del pedido</p></strong>
+                <div class="alergia">
+                    <p class="description">Alergia</p>
+                    <i class="material-icons">brightness_1</i>
+                </div>
+                <div class="observaciones">
+                  <p class="description">Observaciones</p>
+                  <ng-container *ngIf="pedido.observaciones; else alerta">
+                    <i class="material-icons icon-alert">visibility</i>
+                  </ng-container>
+                  <ng-template #alerta>
+                      <i class="material-icons">visibility</i>
+                  </ng-template>
+                  
+                </div>
+                
+              </div>
 
-    <strong><p class="title">Fecha y hora</p></strong>
-    <p class="description">19/02/2019 - 15:00h</p>
-  </div>
+              <div class="col-3 text-center">
+                <strong><p class="title">Actualizar estado</p></strong>
+                <div class="input-group mb-3">
+                  <select class="custom-select" id="inputGroupSelect01" (change)="setEstado(pedido, $event.target.value)">
+                    <option selected hidden disabled>Seleccionar</option>
+                    <option value="en preparacion" [selected]="pedido.estado === 'en preparacion'">En Preparacion</option>
+                    <option value="en envio" [selected]="pedido.estado === 'en envio'">En Envío</option>
+                    <option value="entregado" [selected]="pedido.estado === 'entregado'">Entregado</option>
+                    <option value="rechazado" [selected]="pedido.estado === 'rechazado'">Rechazado</option>
+                  </select>
+                </div>
 
-  <div class="col-3">
-    <strong><p class="title">Monto</p></strong>
-    <p class="description">15.000,00 Pts</p>
+                <button type="button" class="btn btn-outline-primary" (click)="getPedido(pedido)">
+                  Ver más...<i class="material-icons">trending_flat</i>
+                </button>  
+              </div>
 
-    <strong><p class="title">Referencia</p></strong>
-    <p class="description">02023134832</p>
-  </div>
+            </div>
 
-  <div class="col-3">
-    <strong><p class="title">Datos del pedido</p></strong>
-    <div class="alergia">
-        <p class="description">Alergia</p>
-        <i class="material-icons">brightness_1</i>
-    </div>
-    <div class="observaciones">
-      <p class="description">Observaciones</p>
-      <i class="material-icons">visibility</i>
-    </div>
-    
-  </div>
+          </ng-container>
+        </ng-container>
+        
+        <ng-container *ngSwitchCase="'entregado'">
+          <ng-container *ngIf="pedido.estado === 'entregado'">
 
-  <div class="col-3">
-    <strong><p class="title">Actualizar estado</p></strong>
-    <div class="input-group mb-3">
-      <select class="custom-select" id="inputGroupSelect01">
-        <option selected>Seleccionar</option>
-        <option value="1">One</option>
-        <option value="2">Two</option>
-        <option value="3">Three</option>
-      </select>
-    </div>
-  </div>
+            <div class="pedido row">
 
-</div>
-<div class="pedido row">
+              <div class="col-3">
+                <strong><p class="title">Usuario</p></strong>
+                <p class="description">{{ pedido.cliente_username }}</p>
 
-  <div class="col-3">
-    <strong><p class="title">Usuario</p></strong>
-    <p class="description">Username</p>
+                <strong><p class="title">Fecha y hora</p></strong>
+                <p class="description">{{ pedido.createdAt | date:'medium' }}</p>
+              </div>
 
-    <strong><p class="title">Fecha y hora</p></strong>
-    <p class="description">19/02/2019 - 15:00h</p>
-  </div>
+              <!-- TODO: Hablar de esto con Gian y Ramon -->
+              <div class="col-3">
+                <strong><p class="title">Monto</p></strong>
+                <p class="description"> {{ calcMonto(pedido) | number }} Pts</p>
 
-  <div class="col-3">
-    <strong><p class="title">Monto</p></strong>
-    <p class="description">15.000,00 Pts</p>
+                <strong><p class="title">Referencia</p></strong>
+                <p class="description">{{ pedido.referencia }}</p>
+              </div>
 
-    <strong><p class="title">Referencia</p></strong>
-    <p class="description">02023134832</p>
-  </div>
+              <div class="col-3">
+                <strong><p class="title">Datos del pedido</p></strong>
+                <div class="alergia">
+                    <p class="description">Alergia</p>
+                    <i class="material-icons">brightness_1</i>
+                </div>
+                <div class="observaciones">
+                  <p class="description">Observaciones</p>
+                  <ng-container *ngIf="pedido.observaciones; else alerta">
+                    <i class="material-icons icon-alert">visibility</i>
+                  </ng-container>
+                  <ng-template #alerta>
+                      <i class="material-icons">visibility</i>
+                  </ng-template>
+                  
+                </div>
+                
+              </div>
 
-  <div class="col-3">
-    <strong><p class="title">Datos del pedido</p></strong>
-    <div class="alergia">
-        <p class="description">Alergia</p>
-        <i class="material-icons">brightness_1</i>
-    </div>
-    <div class="observaciones">
-      <p class="description">Observaciones</p>
-      <i class="material-icons">visibility</i>
-    </div>
-    
-  </div>
+              <div class="col-3 text-center">
+                <strong><p class="title">Actualizar estado</p></strong>
+                <div class="input-group mb-3">
+                  <select class="custom-select" id="inputGroupSelect01" (change)="setEstado(pedido, $event.target.value)">
+                    <option selected hidden disabled>Seleccionar</option>
+                    <option value="en preparacion" [selected]="pedido.estado === 'en preparacion'">En Preparacion</option>
+                    <option value="en envio" [selected]="pedido.estado === 'en envio'">En Envío</option>
+                    <option value="entregado" [selected]="pedido.estado === 'entregado'">Entregado</option>
+                    <option value="rechazado" [selected]="pedido.estado === 'rechazado'">Rechazado</option>
+                  </select>
+                </div>
 
-  <div class="col-3">
-    <strong><p class="title">Actualizar estado</p></strong>
-    <div class="input-group mb-3">
-      <select class="custom-select" id="inputGroupSelect01">
-        <option selected>Seleccionar</option>
-        <option value="1">One</option>
-        <option value="2">Two</option>
-        <option value="3">Three</option>
-      </select>
-    </div>
-  </div>
+                <button type="button" class="btn btn-outline-primary" (click)="getPedido(pedido)">
+                  Ver más...<i class="material-icons">trending_flat</i>
+                </button>  
+              </div>
 
-</div>
-<div class="pedido row">
+            </div>
+      
+          </ng-container>
+        </ng-container>
+        
+        <ng-container *ngSwitchCase="'rechazado'">
+          <ng-container *ngIf="pedido.estado === 'rechazado'">
 
-  <div class="col-3">
-    <strong><p class="title">Usuario</p></strong>
-    <p class="description">Username</p>
+            <div class="pedido row">
 
-    <strong><p class="title">Fecha y hora</p></strong>
-    <p class="description">19/02/2019 - 15:00h</p>
-  </div>
+              <div class="col-3">
+                <strong><p class="title">Usuario</p></strong>
+                <p class="description">{{ pedido.cliente_username }}</p>
 
-  <div class="col-3">
-    <strong><p class="title">Monto</p></strong>
-    <p class="description">15.000,00 Pts</p>
+                <strong><p class="title">Fecha y hora</p></strong>
+                <p class="description">{{ pedido.createdAt | date:'medium' }}</p>
+              </div>
 
-    <strong><p class="title">Referencia</p></strong>
-    <p class="description">02023134832</p>
-  </div>
+              <!-- TODO: Hablar de esto con Gian y Ramon -->
+              <div class="col-3">
+                <strong><p class="title">Monto</p></strong>
+                <p class="description"> {{ calcMonto(pedido) | number }} Pts</p>
 
-  <div class="col-3">
-    <strong><p class="title">Datos del pedido</p></strong>
-    <div class="alergia">
-        <p class="description">Alergia</p>
-        <i class="material-icons">brightness_1</i>
-    </div>
-    <div class="observaciones">
-      <p class="description">Observaciones</p>
-      <i class="material-icons">visibility</i>
-    </div>
-    
-  </div>
+                <strong><p class="title">Referencia</p></strong>
+                <p class="description">{{ pedido.referencia }}</p>
+              </div>
 
-  <div class="col-3">
-    <strong><p class="title">Actualizar estado</p></strong>
-    <div class="input-group mb-3">
-      <select class="custom-select" id="inputGroupSelect01">
-        <option selected>Seleccionar</option>
-        <option value="1">One</option>
-        <option value="2">Two</option>
-        <option value="3">Three</option>
-      </select>
-    </div>
-  </div>
+              <div class="col-3">
+                <strong><p class="title">Datos del pedido</p></strong>
+                <div class="alergia">
+                    <p class="description">Alergia</p>
+                    <i class="material-icons">brightness_1</i>
+                </div>
+                <div class="observaciones">
+                  <p class="description">Observaciones</p>
+                  <ng-container *ngIf="pedido.observaciones; else alerta">
+                    <i class="material-icons icon-alert">visibility</i>
+                  </ng-container>
+                  <ng-template #alerta>
+                      <i class="material-icons">visibility</i>
+                  </ng-template>
+                  
+                </div>
+                
+              </div>
 
-</div>
+              <div class="col-3 text-center">
+                <strong><p class="title">Actualizar estado</p></strong>
+                <div class="input-group mb-3">
+                  <select class="custom-select" id="inputGroupSelect01" (change)="setEstado(pedido, $event.target.value)">
+                    <option selected hidden disabled>Seleccionar</option>
+                    <option value="en preparacion" [selected]="pedido.estado === 'en preparacion'">En Preparacion</option>
+                    <option value="en envio" [selected]="pedido.estado === 'en envio'">En Envío</option>
+                    <option value="entregado" [selected]="pedido.estado === 'entregado'">Entregado</option>
+                    <option value="rechazado" [selected]="pedido.estado === 'rechazado'">Rechazado</option>
+                  </select>
+                </div>
+
+                <button type="button" class="btn btn-outline-primary" (click)="getPedido(pedido)">
+                  Ver más...<i class="material-icons">trending_flat</i>
+                </button>  
+              </div>
+
+            </div>
+            
+          </ng-container>
+        </ng-container>
+      
+        <ng-container *ngSwitchDefault>
+
+          <div class="pedido row">
+
+            <div class="col-3">
+              <strong><p class="title">Usuario</p></strong>
+              <p class="description">{{ pedido.cliente_username }}</p>
+
+              <strong><p class="title">Fecha y hora</p></strong>
+              <p class="description">{{ pedido.createdAt | date:'medium' }}</p>
+            </div>
+
+            <!-- TODO: Hablar de esto con Gian y Ramon -->
+            <div class="col-3">
+              <strong><p class="title">Monto</p></strong>
+              <p class="description"> {{ calcMonto(pedido) | number }} Pts</p>
+
+              <strong><p class="title">Referencia</p></strong>
+              <p class="description">{{ pedido.referencia }}</p>
+            </div>
+
+            <div class="col-3">
+              <strong><p class="title">Datos del pedido</p></strong>
+              <div class="alergia">
+                  <p class="description">Alergia</p>
+                  <i class="material-icons">brightness_1</i>
+              </div>
+              <div class="observaciones">
+                <p class="description">Observaciones</p>
+                <ng-container *ngIf="pedido.observaciones; else alerta">
+                  <i class="material-icons icon-alert">visibility</i>
+                </ng-container>
+                <ng-template #alerta>
+                    <i class="material-icons">visibility</i>
+                </ng-template>
+                
+              </div>
+              
+            </div>
+
+            <div class="col-3 text-center">
+              <strong><p class="title">Actualizar estado</p></strong>
+              <div class="input-group mb-3">
+                <select class="custom-select" id="inputGroupSelect01" (change)="setEstado(pedido, $event.target.value)">
+                  <option selected hidden disabled>Seleccionar</option>
+                  <option value="en preparacion" [selected]="pedido.estado === 'en preparacion'">En Preparacion</option>
+                  <option value="en envio" [selected]="pedido.estado === 'en envio'">En Envío</option>
+                  <option value="entregado" [selected]="pedido.estado === 'entregado'">Entregado</option>
+                  <option value="rechazado" [selected]="pedido.estado === 'rechazado'">Rechazado</option>
+                </select>
+              </div>
+
+              <button type="button" class="btn btn-outline-primary" (click)="getPedido(pedido)">
+                Ver más...<i class="material-icons">trending_flat</i>
+              </button>  
+            </div>
+
+          </div>
+          
+        </ng-container> 
+      </ng-container>
+
+</ng-container>
