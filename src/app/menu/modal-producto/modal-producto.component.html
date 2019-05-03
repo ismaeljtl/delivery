@@ -39,61 +39,70 @@
                 </select>
               </div>
 
-              <div class="form-group form-ingrediente" formGroupName="ingrediente">
-                <label><strong>Ingredientes del producto</strong></label>
-
+              <div class="form-group form-ingrediente" formArrayName="ingredientes">
                 <div class="row">
-                  <div class="col-6">
-                    <label>Categoría</label>
-                    <input type="text" formControlName="categoriaIngrediente" class="form-control" placeholder="Nombre de la categoría">
-                  </div>
-                  <div class="col-6">
-                    <label>Tipo de selección</label>
-                    <select class="form-control" formControlName="tipo">
-                      <option disabled selected>Seleccione una opción</option>
-                      <option>Selección simple</option>
-                      <option>Selección múltiple</option>
-                    </select>
-                  </div>
+                  <div class="col-4"><label><strong>Ingredientes del producto</strong></label></div>
+                <div class="col-4">
+                  <button type="button" class="btn btn-primary" (click)="addIngrediente()">Agregar ingrediente</button>
                 </div>
-
-                <div class="row">
-                  <div class="col-6">
-                    <label>Ingredientes de la categoría</label>
-                  </div>
-                  <div class="col-6">
-                    <button type="button" class="btn btn-primary">Agregar ingrediente</button>
-                  </div>
+                <div class="col-4">
+                  <button type="button" class="btn btn-danger" (click)="deleteIngrediente()">Eliminar ingrediente</button>
                 </div>
-
-                <div class="row">
-                  <div class="col-6">
-                    <input type="text" formControlName="nombre" class="form-control" placeholder="Nombre del ingrediente">
-                  </div>
-                  <div class="col-6">
-                    <input type="number" formControlName="precio" class="form-control" placeholder="Precio del ingrediente">                  
-                  </div>
                 </div>
-
-                <div class="ingredientesCategoria">
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input" formControlName="opciones" name="opciones" type="radio" id="inlineCheckbox1" value="Obligatorio">
-                      <label class="form-check-label" for="inlineCheckbox1">Obligatorio</label>
-                    </div>
-
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input" formControlName="opciones" name="opciones" type="radio" id="inlineCheckbox2" value="Preseleccionado">
-                      <label class="form-check-label" for="inlineCheckbox2">Preseleccionado</label>
-                    </div>
-
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input" formControlName="agotado" type="checkbox" value="agotado">
-                      <label class="form-check-label" for="exampleRadios1">Agotado</label>
-                    </div>
-                </div>
-
-                <button type="button" class="btn btn-primary">Agregar nueva categoría</button>
                 
+
+                
+
+
+                <div *ngFor="let item of ingredientesArray.controls; let i=index" [formGroupName]="i">
+
+                  <!-- nombre de categoria y opciones -->
+                  <div class="row">
+                    <div class="col-6">
+                      <label>Categoría</label>
+                      <input type="text" formControlName="nombreCategoria" class="form-control" placeholder="Nombre de la categoría">
+                    </div>
+                    <div class="col-6">
+                      <label>Tipo de selección</label>
+                      <select class="form-control" formControlName="tipo">
+                        <option disabled selected>Seleccione una opción</option>
+                        <option>Selección simple</option>
+                        <option>Selección múltiple</option>
+                      </select>
+                    </div>
+                  </div>
+
+                      <!-- nombre y precio -->
+                      <div class="row">
+                        <div class="col-6">
+                          <input type="text" formControlName="nombreIngrediente" class="form-control" placeholder="Nombre del ingrediente">
+                        </div>
+                        <div class="col-6">
+                          <input type="number" formControlName="precio" class="form-control" placeholder="Precio del ingrediente">                  
+                        </div>
+                      </div>
+
+                      <!-- opciones adicionales -->
+                      <div class="row">
+                        <div class="ingredientesCategoria col-8">
+                          <select class="form-control" formControlName="opciones">
+                            <option disabled selected>Seleccione una opción</option>
+                            <option>Obligatorio</option>
+                            <option>Preseleccionado</option>
+                          </select>
+                        </div>
+
+                        <div class="form-check col-4">
+                          <input class="form-check-input" formControlName="agotado" type="checkbox" value="agotado">
+                          <label class="form-check-label" for="exampleRadios1">Agotado</label>
+                        </div>
+                      </div>
+
+                      
+                      
+                  
+                </div>
+
               </div>
 
               <div class="form-group">
@@ -113,8 +122,9 @@
                   <label class="custom-file-label" for="inputFile">Subir archivo</label>
                 </div>
               </div>
+          
+            </div>        
               
-        </div>
         <div class="modal-footer">
           <div>
             <button type="button" class="btn btn-danger">Deshabilitar</button>

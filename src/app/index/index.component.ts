@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class IndexComponent implements OnInit {
 
-  pedidos = 7;
+  pedidos = 2;
 
   constructor() { }
 

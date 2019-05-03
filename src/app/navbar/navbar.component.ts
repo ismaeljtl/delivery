@@ -10,7 +10,7 @@ import { Location } from '@angular/common';
 export class NavbarComponent implements OnInit {
 
   route = '';
-  pedidos = 0;
+  pedidos = 2;
 
   constructor(location: Location, router: Router) {
     // metodo para obtener la url de la app en el inicio y cada cambio de la ruta

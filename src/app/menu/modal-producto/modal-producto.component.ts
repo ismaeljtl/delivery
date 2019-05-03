@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { PRODUCTOS } from '../mock-productos';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder, FormArray } from '@angular/forms';
 
 @Component({
   selector: 'app-modal-producto',
@@ -13,27 +13,42 @@ export class ModalProductoComponent implements OnInit {
   categorias = PRODUCTOS;
 
   // Formulario productos
-  formProductos = new FormGroup({
-    nombre: new FormControl(''),
-    categoriaProducto: new FormControl('Seleccione una opción'),
-    estado: new FormControl('Seleccione una opción'),
-    ingrediente: new FormGroup({
-      categoriaIngrediente: new FormControl(''),
-      tipo: new FormControl('Seleccione una opción'),
-      nombre: new FormControl(''),
-      precio: new FormControl(''),
-      opciones: new FormControl(''),
-      agotado: new FormControl('')
-    }),
-    descripcion: new FormControl(''),
-    precio: new FormControl(''),
+  formProductos = this.fb.group({
+    nombre: [''],
+    categoriaProducto: ['Seleccione una opción'],
+    estado: ['Seleccione una opción'],
+    ingredientes: this.fb.array([]),
+    descripcion: [''],
+    precio: [''],
     // FIXME: Buscar como trabajar la ruta de file en angular
-    foto: new FormControl('')
+    // Respuesta: https://stackoverflow.com/questions/48497409/resolve-c-fakepath-for-file-input-using-pure-javascript-or-angular2
+    foto: ['']
   });
 
-  constructor() { }
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
+    this.addIngrediente();
+  }
+
+  get ingredientesArray() {
+    return this.formProductos.get('ingredientes') as FormArray;
+  }
+
+  addIngrediente() {
+    let fg = this.fb.group({
+      nombreCategoria: this.fb.control(''),
+      tipo: this.fb.control('Seleccione una opción'),
+      nombreIngrediente: this.fb.control(''),
+      precio: this.fb.control(''),
+      opciones: this.fb.control('Seleccione una opción'),
+      agotado: this.fb.control(false)
+    });
+    this.ingredientesArray.push(fg);
+  }
+
+  deleteIngrediente() {
+    this.ingredientesArray.removeAt(this.ingredientesArray.length - 1);
   }
 
   onSubmit() {
