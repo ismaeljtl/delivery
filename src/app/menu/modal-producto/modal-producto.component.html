@@ -13,117 +13,123 @@
         </div>
         <div class="modal-body">
 
-              <div class="form-group">
-                <label>Nombre</label>
-                <input type="text" formControlName="nombre" class="form-control" placeholder="Indique el nombre del producto">
-              </div>
+          <div class="form-group">
+            <label>Nombre</label>
+            <input type="text" formControlName="nombre" class="form-control" placeholder="Indique el nombre del producto">
+          </div>
 
-              <div class="form-group">
-                <label>Categoría a la que pertenecerá el producto</label>
-                <select class="form-control" formControlName="categoriaProducto">
-                  <option disabled selected>Seleccione una opción</option>           
-                  <option *ngFor="let categoria of categorias" 
-                          value="{{ categoria.nombre }}">
-                          {{ categoria.nombre }}
-                  </option>
-                </select>
-              </div>
+          <div class="form-group">
+            <label>Categoría a la que pertenecerá el producto</label>
+            <select class="form-control" formControlName="categoriaProducto">
+              <option disabled selected>Seleccione una opción</option>           
+              <option *ngFor="let categoria of categorias" 
+                      value="{{ categoria.nombre }}">
+                      {{ categoria.nombre }}
+              </option>
+            </select>
+          </div>
 
-              <div class="form-group">
-                <label>Estado</label>
-                <select class="form-control" formControlName="estado">
-                  <option disabled selected>Seleccione una opción</option>
-                  <option>Activo</option>
-                  <option>Inactivo</option>
-                  <option>Agotado</option>
-                </select>
-              </div>
+          <div class="form-group">
+            <label>Estado</label>
+            <select class="form-control" formControlName="estado">
+              <option disabled selected>Seleccione una opción</option>
+              <option>Activo</option>
+              <option>Inactivo</option>
+              <option>Agotado</option>
+            </select>
+          </div>
 
-              <div class="form-group form-ingrediente" formArrayName="ingredientes">
+          <div class="row row-ingredientes">
+            <div class="col-4"><label><strong>Ingredientes</strong></label></div>
+            <div class="col-8 buttons">
+              <button (click)="addCategoria()" class="btn btn-primary"><i class="material-icons">add</i> Categoria</button>
+              <button (click)="deleteCategoria()" class="btn btn-danger"><i class="material-icons">remove</i> Categoria</button>
+            </div>
+            
+          </div>
+
+          <div formArrayName="categoria" class="form-group">
+            <div *ngFor="let categoria of formProductos.get('categoria')['controls']; let ic=index; let even = even; let odd = odd">
+              <div formGroupName="{{ic}}" class="row-striped" [ngClass]="{ odd: odd, even: even }">
+
                 <div class="row">
-                  <div class="col-4"><label><strong>Ingredientes del producto</strong></label></div>
-                <div class="col-4">
-                  <button type="button" class="btn btn-primary" (click)="addIngrediente()">Agregar ingrediente</button>
-                </div>
-                <div class="col-4">
-                  <button type="button" class="btn btn-danger" (click)="deleteIngrediente()">Eliminar ingrediente</button>
-                </div>
-                </div>
-                
-
-                
-
-
-                <div *ngFor="let item of ingredientesArray.controls; let i=index" [formGroupName]="i">
-
-                  <!-- nombre de categoria y opciones -->
-                  <div class="row">
-                    <div class="col-6">
-                      <label>Categoría</label>
-                      <input type="text" formControlName="nombreCategoria" class="form-control" placeholder="Nombre de la categoría">
-                    </div>
-                    <div class="col-6">
-                      <label>Tipo de selección</label>
-                      <select class="form-control" formControlName="tipo">
-                        <option disabled selected>Seleccione una opción</option>
-                        <option>Selección simple</option>
-                        <option>Selección múltiple</option>
-                      </select>
-                    </div>
+                  <div class="col-6">
+                    <label><strong>Categoría {{ic + 1}}</strong></label>
+                    <input type="text" formControlName="nombreCategoria" class="form-control" placeholder="Nombre de la categoría">
                   </div>
+                  <div class="col-6">
+                    <label>Tipo de selección</label>
+                    <select class="form-control" formControlName="tipoSeleccion">
+                      <option disabled selected>Seleccione una opción</option>
+                      <option>Selección simple</option>
+                      <option>Selección múltiple</option>
+                    </select>
+                  </div>
+                </div>
+      
+                <div formArrayName="ingredientes">
+                  <div *ngFor="let ingrediente of categoria['controls'].ingredientes['controls']; let ii=index">
+                    <div formGroupName="{{ii}}">
+                      
+                      <div class="row row-ingredientes mt-2">
+                        <div class="col-4">
+                          <label>Ingredientes</label>
+                        </div>
+                        <div class="col-8 buttons">
+                          <button (click)="addIngredientes(ic)" class="btn btn-primary"><i class="material-icons">add</i> Ingrediente</button>
+                          <button (click)="deleteIngredientes(ic)" class="btn btn-danger"><i class="material-icons">remove</i> Ingrediente</button>
+                        </div>
+                      </div>
 
-                      <!-- nombre y precio -->
                       <div class="row">
                         <div class="col-6">
-                          <input type="text" formControlName="nombreIngrediente" class="form-control" placeholder="Nombre del ingrediente">
+                          <input type="text" formControlName="nombreIngrediente" class="form-control" placeholder="Nombre ingrediente n° {{ii + 1}}" >
                         </div>
                         <div class="col-6">
                           <input type="number" formControlName="precio" class="form-control" placeholder="Precio del ingrediente">                  
                         </div>
                       </div>
 
-                      <!-- opciones adicionales -->
-                      <div class="row">
-                        <div class="ingredientesCategoria col-8">
-                          <select class="form-control" formControlName="opciones">
-                            <option disabled selected>Seleccione una opción</option>
-                            <option>Obligatorio</option>
-                            <option>Preseleccionado</option>
-                          </select>
+                      <div class="row mb-2 mt-2">
+                        <div class="col-4">
+                          <input type="radio" value="obligatorio" formControlName="tipoSeleccion">obligatorio
                         </div>
-
-                        <div class="form-check col-4">
-                          <input class="form-check-input" formControlName="agotado" type="checkbox" value="agotado">
-                          <label class="form-check-label" for="exampleRadios1">Agotado</label>
+                        <div class="col-5">
+                          <input type="radio" value="preseleccionado" formControlName="tipoSeleccion">preseleccionado
+                        </div>
+                        <div class="col-3">
+                          <input type="checkbox" formControlName="agotado" value="true">agotado
                         </div>
                       </div>
 
-                      
-                      
-                  
+
+                    </div>
+                  </div>
                 </div>
-
+      
               </div>
+            </div>
+          </div>
 
-              <div class="form-group">
-                <label>Descripcion</label>
-                <textarea formControlName="descripcion" class="form-control" rows="3" placeholder="Indique una descripción del producto"></textarea>
-              </div>
+          <div class="form-group">
+            <label>Descripcion</label>
+            <textarea formControlName="descripcion" class="form-control" rows="3" placeholder="Indique una descripción del producto"></textarea>
+          </div>
 
-              <div class="form-group">
-                <label>Precio</label>
-                <input type="number" formControlName="precio" class="form-control" placeholder="Indique el precio general del producto">
-              </div>
+          <div class="form-group">
+            <label>Precio</label>
+            <input type="number" formControlName="precio" class="form-control" placeholder="Indique el precio general del producto">
+          </div>
 
-              <div class="form-group">
-                  <label>Foto</label> 
-                <div class="custom-file">
-                  <input type="file" formControlName="foto" class="custom-file-input" id="inputFile" aria-describedby="inputGroupFileAddon04">
-                  <label class="custom-file-label" for="inputFile">Subir archivo</label>
-                </div>
-              </div>
+          <div class="form-group">
+              <label>Foto</label> 
+            <div class="custom-file">
+              <input type="file" formControlName="foto" class="custom-file-input" id="inputFile" aria-describedby="inputGroupFileAddon04">
+              <label class="custom-file-label" for="inputFile">Subir archivo</label>
+            </div>
+          </div>
           
-            </div>        
+         </div>        
               
         <div class="modal-footer">
           <div>

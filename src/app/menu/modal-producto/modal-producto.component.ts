@@ -13,42 +13,79 @@ export class ModalProductoComponent implements OnInit {
   categorias = PRODUCTOS;
 
   // Formulario productos
-  formProductos = this.fb.group({
-    nombre: [''],
-    categoriaProducto: ['Seleccione una opción'],
-    estado: ['Seleccione una opción'],
-    ingredientes: this.fb.array([]),
-    descripcion: [''],
-    precio: [''],
-    // FIXME: Buscar como trabajar la ruta de file en angular
-    // Respuesta: https://stackoverflow.com/questions/48497409/resolve-c-fakepath-for-file-input-using-pure-javascript-or-angular2
-    foto: ['']
-  });
+  formProductos: FormGroup;
 
   constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
-    this.addIngrediente();
-  }
-
-  get ingredientesArray() {
-    return this.formProductos.get('ingredientes') as FormArray;
-  }
-
-  addIngrediente() {
-    let fg = this.fb.group({
-      nombreCategoria: this.fb.control(''),
-      tipo: this.fb.control('Seleccione una opción'),
-      nombreIngrediente: this.fb.control(''),
-      precio: this.fb.control(''),
-      opciones: this.fb.control('Seleccione una opción'),
-      agotado: this.fb.control(false)
+    this.formProductos = this.fb.group({
+      nombre: [''],
+      categoriaProducto: ['Seleccione una opción'],
+      estado: ['Seleccione una opción'],
+      descripcion: [''],
+      precio: [''],
+      foto: [''],
+      // arreglo de categorias
+      categoria: this.fb.array([
+        this.fb.group({
+          nombreCategoria: [''],
+          tipoSeleccion: ['Seleccione una opción'],
+          // arreglo de ingredientes
+          ingredientes: this.fb.array([
+            this.fb.group({
+              nombreIngrediente: [''],
+              precio: [''],
+              tipoSeleccion: ['Seleccione una opción'],
+              agotado: [false]
+            })
+          ])
+        })
+      ])
     });
-    this.ingredientesArray.push(fg);
   }
 
-  deleteIngrediente() {
-    this.ingredientesArray.removeAt(this.ingredientesArray.length - 1);
+  addCategoria() {
+    const control = this.formProductos.controls.categoria as FormArray;
+    const fg = this.fb.group({
+      nombreCategoria: [''],
+      tipoSeleccion: ['Seleccione una opción'],
+      // arreglo de ingredientes
+      ingredientes: this.fb.array([
+        this.fb.group({
+          nombreIngrediente: [''],
+          precio: [''],
+          tipoSeleccion: ['Seleccione una opción'],
+          agotado: [false]
+        })
+      ])
+    });
+
+    control.push(fg);
+  }
+
+  deleteCategoria() {
+    // tslint:disable-next-line: no-string-literal
+    const control = this.formProductos.get('categoria') as FormArray;
+    control.removeAt(control.length - 1);
+  }
+
+  addIngredientes(i) {
+    const control = (this.formProductos.controls.categoria as FormArray).at(i).get('ingredientes') as FormArray;
+    const fg = this.fb.group({
+      nombreIngrediente: [''],
+      precio: [''],
+      tipoSeleccion: ['Seleccione una opción'],
+      agotado: [false]
+    });
+
+    control.push(fg);
+  }
+
+  deleteIngredientes(ic) {
+    // tslint:disable-next-line: no-string-literal
+    const control = this.formProductos.get('categoria')['controls'][ic].controls.ingredientes as FormArray;
+    // console.log(control.controls[ic].controls.ingredientes);
+    control.removeAt( control.length - 1 );
   }
 
   onSubmit() {
