@@ -1,3 +1,5 @@
+// clase vieja!
+
 export class Producto {
 
     constructor(

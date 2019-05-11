@@ -15,12 +15,12 @@
 
           <div class="form-group">
             <label>Nombre</label>
-            <input type="text" formControlName="nombre" class="form-control" placeholder="Indique el nombre del producto">
+            <input type="text" formControlName="nombre" required class="form-control" placeholder="Indique el nombre del producto">
           </div>
 
           <div class="form-group">
             <label>Categoría a la que pertenecerá el producto</label>
-            <select class="form-control" formControlName="categoriaProducto">
+            <select class="form-control" formControlName="categoriaProducto" required>
               <option disabled selected>Seleccione una opción</option>           
               <option *ngFor="let categoria of categorias" 
                       value="{{ categoria.nombre }}">
@@ -31,11 +31,11 @@
 
           <div class="form-group">
             <label>Estado</label>
-            <select class="form-control" formControlName="estado">
+            <select class="form-control" formControlName="estado" required>
               <option disabled selected>Seleccione una opción</option>
-              <option>Activo</option>
-              <option>Inactivo</option>
-              <option>Agotado</option>
+              <option value="activo">Activo</option>
+              <option value="inactivo">Inactivo</option>
+              <option value="agotado">Agotado</option>
             </select>
           </div>
 
@@ -55,47 +55,47 @@
                 <div class="row">
                   <div class="col-6">
                     <label><strong>Categoría {{ic + 1}}</strong></label>
-                    <input type="text" formControlName="nombreCategoria" class="form-control" placeholder="Nombre de la categoría">
+                    <input type="text" formControlName="nombreCategoria" required class="form-control" placeholder="Nombre de la categoría">
                   </div>
                   <div class="col-6">
                     <label>Tipo de selección</label>
-                    <select class="form-control" formControlName="tipoSeleccion">
+                    <select class="form-control" formControlName="tipoSeleccion" required>
                       <option disabled selected>Seleccione una opción</option>
-                      <option>Selección simple</option>
-                      <option>Selección múltiple</option>
+                      <option value="seleccion simple">Selección simple</option>
+                      <option value="seleccion multiple">Selección múltiple</option>
                     </select>
+                  </div>
+                </div>
+
+                <div class="row row-ingredientes mt-2">
+                  <div class="col-4">
+                    <label>Ingredientes</label>
+                  </div>
+                  <div class="col-8 buttons">
+                    <button (click)="addIngredientes(ic)" class="btn btn-primary"><i class="material-icons">add</i> Ingrediente</button>
+                    <button (click)="deleteIngredientes(ic)" class="btn btn-danger"><i class="material-icons">remove</i> Ingrediente</button>
                   </div>
                 </div>
       
                 <div formArrayName="ingredientes">
                   <div *ngFor="let ingrediente of categoria['controls'].ingredientes['controls']; let ii=index">
                     <div formGroupName="{{ii}}">
-                      
-                      <div class="row row-ingredientes mt-2">
-                        <div class="col-4">
-                          <label>Ingredientes</label>
-                        </div>
-                        <div class="col-8 buttons">
-                          <button (click)="addIngredientes(ic)" class="btn btn-primary"><i class="material-icons">add</i> Ingrediente</button>
-                          <button (click)="deleteIngredientes(ic)" class="btn btn-danger"><i class="material-icons">remove</i> Ingrediente</button>
-                        </div>
-                      </div>
 
                       <div class="row">
                         <div class="col-6">
-                          <input type="text" formControlName="nombreIngrediente" class="form-control" placeholder="Nombre ingrediente n° {{ii + 1}}" >
+                          <input type="text" formControlName="nombreIngrediente" required class="form-control" placeholder="Nombre ingrediente n° {{ii + 1}}" >
                         </div>
                         <div class="col-6">
-                          <input type="number" formControlName="precio" class="form-control" placeholder="Precio del ingrediente">                  
+                          <input type="number" formControlName="precio" required class="form-control" placeholder="Precio del ingrediente">                  
                         </div>
                       </div>
 
                       <div class="row mb-2 mt-2">
                         <div class="col-4">
-                          <input type="radio" value="obligatorio" formControlName="tipoSeleccion">obligatorio
+                          <input type="radio" value="obligatorio" formControlName="tipoSeleccion" required>obligatorio
                         </div>
                         <div class="col-5">
-                          <input type="radio" value="preseleccionado" formControlName="tipoSeleccion">preseleccionado
+                          <input type="radio" value="preseleccionado" formControlName="tipoSeleccion" required>preseleccionado
                         </div>
                         <div class="col-3">
                           <input type="checkbox" formControlName="agotado" value="true">agotado
@@ -113,12 +113,12 @@
 
           <div class="form-group">
             <label>Descripcion</label>
-            <textarea formControlName="descripcion" class="form-control" rows="3" placeholder="Indique una descripción del producto"></textarea>
+            <textarea formControlName="descripcion" required class="form-control" rows="3" placeholder="Indique una descripción del producto"></textarea>
           </div>
 
           <div class="form-group">
             <label>Precio</label>
-            <input type="number" formControlName="precio" class="form-control" placeholder="Indique el precio general del producto">
+            <input type="number" formControlName="precio" required class="form-control" placeholder="Indique el precio general del producto">
           </div>
 
           <div class="form-group">
@@ -137,7 +137,7 @@
           </div>
           <div>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-            <button type="submit"  class="btn btn-primary submit">Guardar</button>
+            <button type="submit"  class="btn btn-primary submit">Agregar</button>
           </div>
         </div>
       </div>

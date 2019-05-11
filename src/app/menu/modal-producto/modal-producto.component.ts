@@ -1,6 +1,10 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { PRODUCTOS } from '../mock-productos';
 import { FormControl, FormGroup, FormBuilder, FormArray } from '@angular/forms';
+import { MENUCOMERCIO } from '../mock-menu-comercio';
+import { Product } from '../product';
+import { MenuService } from '../menu.service';
+import { MenuComercio } from '../menu-comercio';
+import { Componente } from '../componente';
 
 @Component({
   selector: 'app-modal-producto',
@@ -9,15 +13,33 @@ import { FormControl, FormGroup, FormBuilder, FormArray } from '@angular/forms';
 })
 export class ModalProductoComponent implements OnInit {
 
-  // Mock para obtener las categorias que hay en la app
-  categorias = PRODUCTOS;
+  categorias: MenuComercio[];
 
   // Formulario productos
   formProductos: FormGroup;
 
-  constructor(private fb: FormBuilder) { }
+  // valor seleccionados en el componente categoria
+  categoria: string;
+  // producto seleccionado luego de seleccionar una categoria
+  producto: Product;
+
+  constructor(private fb: FormBuilder, private menuService: MenuService) { }
 
   ngOnInit() {
+    // Mock para obtener las categorias que hay en la app
+    this.categorias = this.menuService.getMockProductos();
+
+    this.menuService.producto.subscribe((param: Product) => {
+      this.producto = param;
+    });
+    this.menuService.categoria.subscribe((param: string) => {
+      this.categoria = param;
+    });
+
+    this.inicializarForm();
+  }
+
+  inicializarForm() {
     this.formProductos = this.fb.group({
       nombre: [''],
       categoriaProducto: ['Seleccione una opción'],
@@ -25,6 +47,7 @@ export class ModalProductoComponent implements OnInit {
       descripcion: [''],
       precio: [''],
       foto: [''],
+      // https://www.techiediaries.com/angular-file-upload-progress-bar/
       // arreglo de categorias
       categoria: this.fb.array([
         this.fb.group({
@@ -89,6 +112,35 @@ export class ModalProductoComponent implements OnInit {
   }
 
   onSubmit() {
+    // const producto = new MenuComercio(
+    //   '',
+    //   '',
+    //   this.formProductos.get('categoriaProducto').value,
+    //   'normal',
+    //   [
+    //     new Product(
+    //       '',
+    //       '',
+    //       this.formProductos.get('nombre').value,
+    //       this.formProductos.get('descripcion').value,
+    //       this.formProductos.get('estado').value,
+    //       this.formProductos.get('precio').value,
+    //       [
+    //         new Componente(
+    //           '',
+    //           this.formProductos.get('nombreCategoria').value,
+    //           this.formProductos.get('tipoSeleccion').value,
+    //           [
+    //             for (const iterator of object) {
+                  
+    //             }
+    //           ]
+    //         )
+    //       ]
+    //     )
+    //   ]
+    // );
+
     console.log(this.formProductos.value);
   }
 

@@ -21,9 +21,4 @@ export class MenuComponent implements OnInit {
     this._location.back();
   }
 
-  // Como un producto tiene mas de un ingrediente se deben poder tener en el formulario todos los ingredientes
-  public agregarIngrediente() {
-
-  }
-
 }

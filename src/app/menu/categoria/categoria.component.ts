@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { PRODUCTOS } from '../mock-productos';
 import { MenuService } from '../menu.service';
 import { Categoria } from '../categoria';
+import { MENUCOMERCIO } from '../mock-menu-comercio';
+import { MenuComercio } from '../menu-comercio';
+import { Product } from '../product';
 
 @Component({
   selector: 'app-categoria',
@@ -18,11 +20,12 @@ export class CategoriaComponent implements OnInit {
 
   // TODO: cambiar mocks por servicio HTTP
   // mmock de categorias categorias
-  categorias = PRODUCTOS;
+  categorias: MenuComercio[];
 
   constructor(private menuService: MenuService) { }
 
   ngOnInit() {
+    this.categorias = this.menuService.getMockProductos();
   }
 
   // Un usuario podria querer eliminar una categoria y todos sus elementos, por eso este metodo
@@ -48,7 +51,7 @@ export class CategoriaComponent implements OnInit {
   // este metodo que retorna la categoria clickeada a menu.service
   public getCategoria(categoria: Categoria) {
     // console.log(categoria.nombre);
-    this.menuService.levantarEvento(categoria.nombre);
+    this.menuService.getCategoria(categoria.nombre);
   }
 
   // True si el item no existe en el arreglo de categorias;
@@ -62,12 +65,13 @@ export class CategoriaComponent implements OnInit {
     return true;
   }
 
+  // TODO: este metodo no funcionara de esta manera con los servicios HTTP. 
   // // Metodo para agregar nueva categoria
   public agregarCategoria() {
     if (this.inputCategoria !== '') {
       if (this.comprobarCategorias(this.inputCategoria)) {
         // agregamos la categoria
-        this.categorias.push(new Categoria(this.inputCategoria, []) );
+        this.categorias.push( new MenuComercio('', '', this.toTitleCase(this.inputCategoria), 'normal', []) );
         // cerramos el modal
         $('#exampleModal').modal('hide');
 
@@ -81,6 +85,15 @@ export class CategoriaComponent implements OnInit {
       this.errorMsg = 'La categoria no puede estar vacia.';
     }
   }
+
+  // funcion para convertir strings a Title Case (ej. hola -> Hola)
+  public toTitleCase(str) {
+    return str.replace(
+        /\w\S*/g, (txt: string) => {
+            return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+        }
+    );
+}
 
   // Metodo para abrir el modal y colocar el input en modo 'focus'
   public abrirModal() {

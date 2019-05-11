@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { PedidosService } from '../pedidos/pedidos.service';
 
 @Component({
   selector: 'app-navbar',
@@ -10,7 +11,7 @@ import { Location } from '@angular/common';
 export class NavbarComponent implements OnInit {
 
   route = '';
-  pedidos = 2;
+  cantPedidos = 2;
 
   constructor(location: Location, router: Router) {
     // metodo para obtener la url de la app en el inicio y cada cambio de la ruta

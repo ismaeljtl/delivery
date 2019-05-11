@@ -7,7 +7,7 @@ export class Pedido {
         public factura: string,
         public observaciones: string,
         public estado: string,
-        public alergias: boolean,
+        public alergias: boolean, // <- En la peticion Http sera: Array <string>
         public createdAt: string,
         public updatedAt: string,
         public cliente_username: string,

@@ -7,6 +7,12 @@ import { PEDIDOS } from './mock-pedidos';
 })
 export class PedidosService {
 
+  constructor() {
+    // inicializamos la variable que servira para informar los eventos
+    this.pedidoEvent = new EventEmitter<Pedido>();
+    this.filtroEvent = new EventEmitter<string>();
+  }
+
   // TODO: cambiar mocks por servicio HTTP
   // mock de pedidos
   public pedidos = PEDIDOS;
@@ -17,16 +23,11 @@ export class PedidosService {
 
   public filtroEvent: EventEmitter<String>;
 
-  constructor() {
-    // inicializamos la variable que servira para informar los eventos
-    this.pedidoEvent = new EventEmitter<Pedido>();
-    this.filtroEvent = new EventEmitter<string>();
-  }
-
   levantarEvento(pedido: Pedido) {
     this.pedidoEvent.emit(pedido);
   }
 
+  // metodo para leer obtener el filtro que se ha seleccionado en la pantalla (Mostrar todos, en preparacion...)
   public levantarEventoGetFiltro(valor) {
     this.filtroEvent.emit(valor);
   }

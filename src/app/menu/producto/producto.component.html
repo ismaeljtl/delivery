@@ -5,9 +5,9 @@
 
     <ng-container *ngFor="let categoria of productos">
       <ng-container *ngIf="categoria.nombre === categoriaSeleccionada">
-        <ng-container *ngFor="let producto of categoria.productos">
+        <ng-container *ngFor="let producto of categoria.products">
           <div class="col-4">
-            <div class="card" (click)="openModal()">
+            <div class="card" (click)="openModalDetails(producto, categoriaSeleccionada)">
               <div class="imgContainer">
                 <img src="../../../assets/img/card.png" alt="Imagen de fondo">
                 <div class="iconContainer">
