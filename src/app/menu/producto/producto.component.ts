@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuService } from '../menu.service';
-import { PRODUCTOS } from '../mock-productos';
-import { MENUCOMERCIO } from '../mock-menu-comercio';
 import { MenuComercio } from '../menu-comercio';
 
 @Component({
@@ -34,8 +32,8 @@ export class ProductoComponent implements OnInit {
   }
 
   // Metodo para abrir el modal y cargar la informacion del objeto que se selecciono para editarlo.
-  public openModalDetails(producto, categoriaSeleccionada) {
-    this.menuService.getmodalDetails(producto, categoriaSeleccionada);
+  public openModalDetails(producto) {
+    this.menuService.getmodalDetails(producto);
     $('#modalProducto').modal('show');
   }
 

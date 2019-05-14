@@ -1,10 +1,9 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, FormArray } from '@angular/forms';
-import { MENUCOMERCIO } from '../mock-menu-comercio';
-import { Product } from '../product';
+import { Producto } from '../producto';
 import { MenuService } from '../menu.service';
 import { MenuComercio } from '../menu-comercio';
-import { Componente } from '../componente';
+import { CompIng } from '../comp-ing';
 
 @Component({
   selector: 'app-modal-producto',
@@ -13,15 +12,14 @@ import { Componente } from '../componente';
 })
 export class ModalProductoComponent implements OnInit {
 
+  // variable que contendra las categorias que hay en el mock
   categorias: MenuComercio[];
 
   // Formulario productos
   formProductos: FormGroup;
 
-  // valor seleccionados en el componente categoria
-  categoria: string;
   // producto seleccionado luego de seleccionar una categoria
-  producto: Product;
+  producto: Producto;
 
   constructor(private fb: FormBuilder, private menuService: MenuService) { }
 
@@ -29,16 +27,23 @@ export class ModalProductoComponent implements OnInit {
     // Mock para obtener las categorias que hay en la app
     this.categorias = this.menuService.getMockProductos();
 
-    this.menuService.producto.subscribe((param: Product) => {
-      this.producto = param;
-    });
-    this.menuService.categoria.subscribe((param: string) => {
-      this.categoria = param;
+    // al iniciar el componente debemos inicializar el formulario
+    this.inicializarForm();
+
+    // el boton de agregar (que abre el modal vacio) esta en el componente menu, por lo que
+    // debemos suscribirnos a su evento y cuando haya un click limpiamos el formulario
+    this.menuService.modalOpened.subscribe(() => {
+      this.inicializarForm();
     });
 
-    this.inicializarForm();
+    // Cuando clickean un producto obtengo la informacion del objeto
+    this.menuService.producto.subscribe((param: Producto) => {
+      this.producto = param;
+      this.patchForm(param);
+    });
   }
 
+  // metodo que nos sirve para inicializar el formulario reactivo
   inicializarForm() {
     this.formProductos = this.fb.group({
       nombre: [''],
@@ -46,102 +51,96 @@ export class ModalProductoComponent implements OnInit {
       estado: ['Seleccione una opción'],
       descripcion: [''],
       precio: [''],
-      foto: [''],
       // https://www.techiediaries.com/angular-file-upload-progress-bar/
+      foto: [''],
       // arreglo de categorias
       categoria: this.fb.array([
         this.fb.group({
-          nombreCategoria: [''],
-          tipoSeleccion: ['Seleccione una opción'],
+          nombreComponente: [''],
+          tipoComponente: ['Seleccione una opción'],
           // arreglo de ingredientes
-          ingredientes: this.fb.array([
-            this.fb.group({
-              nombreIngrediente: [''],
-              precio: [''],
-              tipoSeleccion: ['Seleccione una opción'],
-              agotado: [false]
-            })
+          comp_ing: this.fb.array([
+            this.fb.group(
+              new CompIng()
+            )
           ])
         })
       ])
     });
   }
 
+  // metodo para cargar los valores del producto en el formulario del modal
+  patchForm(producto: Producto) {
+    // primero limpiamos tdos los campos
+    this.inicializarForm();
+
+    // empezamos a llenar los campos
+    this.formProductos.patchValue(producto);
+    for (let i = 0; i < producto.componente.length; i++) {
+      // agregamos el campo de categoria y llenamos la informacion
+      this.addCategoria();
+      this.formProductos.get('categoria').patchValue(producto.componente);
+
+      for (let j = 0; j < producto.componente[i].comp_ing.length; j++) {
+        // agregamos el campo de ingrediente y llenamos la informacion
+        this.addIngredientes(i);
+        (this.formProductos.controls.categoria as FormArray).at(i).get('comp_ing').patchValue(producto.componente[i].comp_ing);
+      }
+      // eliminamos un ingrediente para que no quede un campo nuevo para llenar
+      this.deleteIngredientes(i);
+    }
+      // eliminamos una categoria para que no quede un campo nuevo para llenar
+    this.deleteCategoria();
+  }
+
+  // metodo para agregar un FormArray de la categoria
   addCategoria() {
     const control = this.formProductos.controls.categoria as FormArray;
     const fg = this.fb.group({
-      nombreCategoria: [''],
-      tipoSeleccion: ['Seleccione una opción'],
+      nombreComponente: [''],
+      tipoComponente: ['Seleccione una opción'],
       // arreglo de ingredientes
-      ingredientes: this.fb.array([
-        this.fb.group({
-          nombreIngrediente: [''],
-          precio: [''],
-          tipoSeleccion: ['Seleccione una opción'],
-          agotado: [false]
-        })
+      comp_ing: this.fb.array([
+        this.fb.group(
+          new CompIng()
+        )
       ])
     });
 
     control.push(fg);
   }
 
+  // metodo para eliminar un FormArray de categoria
   deleteCategoria() {
     // tslint:disable-next-line: no-string-literal
     const control = this.formProductos.get('categoria') as FormArray;
     control.removeAt(control.length - 1);
   }
 
+  // metodo para agregar un FormArray de la ingrediente
   addIngredientes(i) {
-    const control = (this.formProductos.controls.categoria as FormArray).at(i).get('ingredientes') as FormArray;
-    const fg = this.fb.group({
-      nombreIngrediente: [''],
-      precio: [''],
-      tipoSeleccion: ['Seleccione una opción'],
-      agotado: [false]
-    });
+    const control = (this.formProductos.controls.categoria as FormArray).at(i).get('comp_ing') as FormArray;
+    const fg = this.fb.group(
+      new CompIng()
+    );
 
     control.push(fg);
   }
 
+  // metodo para eliminar un FormArray de ingrediente
   deleteIngredientes(ic) {
     // tslint:disable-next-line: no-string-literal
-    const control = this.formProductos.get('categoria')['controls'][ic].controls.ingredientes as FormArray;
-    // console.log(control.controls[ic].controls.ingredientes);
+    const control = this.formProductos.get('categoria')['controls'][ic].controls.comp_ing as FormArray;
     control.removeAt( control.length - 1 );
   }
 
+  // metodo para el submit
   onSubmit() {
-    // const producto = new MenuComercio(
-    //   '',
-    //   '',
-    //   this.formProductos.get('categoriaProducto').value,
-    //   'normal',
-    //   [
-    //     new Product(
-    //       '',
-    //       '',
-    //       this.formProductos.get('nombre').value,
-    //       this.formProductos.get('descripcion').value,
-    //       this.formProductos.get('estado').value,
-    //       this.formProductos.get('precio').value,
-    //       [
-    //         new Componente(
-    //           '',
-    //           this.formProductos.get('nombreCategoria').value,
-    //           this.formProductos.get('tipoSeleccion').value,
-    //           [
-    //             for (const iterator of object) {
-                  
-    //             }
-    //           ]
-    //         )
-    //       ]
-    //     )
-    //   ]
-    // );
-
     console.log(this.formProductos.value);
+    this.menuService.addProducto(this.formProductos.value);
+    this.formProductos.reset();
+    this.inicializarForm();
+    $('#modalProducto').modal('hide');
   }
 
 }

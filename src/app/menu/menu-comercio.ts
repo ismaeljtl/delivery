@@ -1,4 +1,4 @@
-import { Product } from './product';
+import { Producto } from './producto';
 
 export class MenuComercio {
 
@@ -7,6 +7,6 @@ export class MenuComercio {
         public comercio_id: string,
         public nombre: string,
         public tipo: string,
-        public products: Array <Product>
+        public productos: Array <Producto>
     ) { }
 }

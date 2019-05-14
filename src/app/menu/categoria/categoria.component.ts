@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuService } from '../menu.service';
 import { Categoria } from '../categoria';
-import { MENUCOMERCIO } from '../mock-menu-comercio';
 import { MenuComercio } from '../menu-comercio';
-import { Product } from '../product';
 
 @Component({
   selector: 'app-categoria',
