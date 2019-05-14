@@ -48,8 +48,8 @@
             
           </div>
 
-          <div formArrayName="categoria" class="form-group">
-            <div *ngFor="let categoria of formProductos.get('categoria')['controls']; let ic=index; let even = even; let odd = odd">
+          <div formArrayName="componente" class="form-group">
+            <div *ngFor="let categoria of formProductos.get('componente')['controls']; let ic=index; let even = even; let odd = odd">
               <div formGroupName="{{ic}}" class="row-striped" [ngClass]="{ odd: odd, even: even }">
 
                 <div class="row">

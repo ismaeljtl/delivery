@@ -54,7 +54,7 @@ export class ModalProductoComponent implements OnInit {
       // https://www.techiediaries.com/angular-file-upload-progress-bar/
       foto: [''],
       // arreglo de categorias
-      categoria: this.fb.array([
+      componente: this.fb.array([
         this.fb.group({
           nombreComponente: [''],
           tipoComponente: ['Seleccione una opción'],
@@ -79,12 +79,12 @@ export class ModalProductoComponent implements OnInit {
     for (let i = 0; i < producto.componente.length; i++) {
       // agregamos el campo de categoria y llenamos la informacion
       this.addCategoria();
-      this.formProductos.get('categoria').patchValue(producto.componente);
+      this.formProductos.get('componente').patchValue(producto.componente);
 
       for (let j = 0; j < producto.componente[i].comp_ing.length; j++) {
         // agregamos el campo de ingrediente y llenamos la informacion
         this.addIngredientes(i);
-        (this.formProductos.controls.categoria as FormArray).at(i).get('comp_ing').patchValue(producto.componente[i].comp_ing);
+        (this.formProductos.controls.componente as FormArray).at(i).get('comp_ing').patchValue(producto.componente[i].comp_ing);
       }
       // eliminamos un ingrediente para que no quede un campo nuevo para llenar
       this.deleteIngredientes(i);
@@ -95,7 +95,7 @@ export class ModalProductoComponent implements OnInit {
 
   // metodo para agregar un FormArray de la categoria
   addCategoria() {
-    const control = this.formProductos.controls.categoria as FormArray;
+    const control = this.formProductos.controls.componente as FormArray;
     const fg = this.fb.group({
       nombreComponente: [''],
       tipoComponente: ['Seleccione una opción'],
@@ -113,13 +113,13 @@ export class ModalProductoComponent implements OnInit {
   // metodo para eliminar un FormArray de categoria
   deleteCategoria() {
     // tslint:disable-next-line: no-string-literal
-    const control = this.formProductos.get('categoria') as FormArray;
+    const control = this.formProductos.get('componente') as FormArray;
     control.removeAt(control.length - 1);
   }
 
   // metodo para agregar un FormArray de la ingrediente
   addIngredientes(i) {
-    const control = (this.formProductos.controls.categoria as FormArray).at(i).get('comp_ing') as FormArray;
+    const control = (this.formProductos.controls.componente as FormArray).at(i).get('comp_ing') as FormArray;
     const fg = this.fb.group(
       new CompIng()
     );
@@ -130,7 +130,7 @@ export class ModalProductoComponent implements OnInit {
   // metodo para eliminar un FormArray de ingrediente
   deleteIngredientes(ic) {
     // tslint:disable-next-line: no-string-literal
-    const control = this.formProductos.get('categoria')['controls'][ic].controls.comp_ing as FormArray;
+    const control = this.formProductos.get('componente')['controls'][ic].controls.comp_ing as FormArray;
     control.removeAt( control.length - 1 );
   }
 
