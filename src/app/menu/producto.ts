@@ -10,6 +10,7 @@ export class Producto {
     public estado: string = 'Seleccione una opción';
     public precio: number;
     public foto: string = '';
+    public deshabilitado = false;
     public componente: Array <Componente>;
 
     // constructor(

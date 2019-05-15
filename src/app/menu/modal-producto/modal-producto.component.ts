@@ -21,6 +21,9 @@ export class ModalProductoComponent implements OnInit {
   // producto seleccionado luego de seleccionar una categoria
   producto: Producto;
 
+  // variable que notificara si un producto esta habilitado o deshabilitado
+  deshabilitado: boolean = false;
+
   constructor(private fb: FormBuilder, private menuService: MenuService) { }
 
   ngOnInit() {
@@ -34,11 +37,14 @@ export class ModalProductoComponent implements OnInit {
     // debemos suscribirnos a su evento y cuando haya un click limpiamos el formulario
     this.menuService.modalOpened.subscribe(() => {
       this.inicializarForm();
+      this.producto = new Producto();
+      this.deshabilitado = this.producto.deshabilitado;
     });
 
     // Cuando clickean un producto obtengo la informacion del objeto
     this.menuService.producto.subscribe((param: Producto) => {
       this.producto = param;
+      this.deshabilitado = this.producto.deshabilitado;
       this.patchForm(param);
     });
   }
@@ -132,6 +138,24 @@ export class ModalProductoComponent implements OnInit {
     // tslint:disable-next-line: no-string-literal
     const control = this.formProductos.get('componente')['controls'][ic].controls.comp_ing as FormArray;
     control.removeAt( control.length - 1 );
+  }
+
+  // metodo para deshabilitar o habilitar un producto
+  deshabilitar() {
+    // TODO: crear una mejor forma de validacion (puede ser verificando el id)
+    if (this.producto.nombre !== '') {
+      if (this.producto.deshabilitado) {
+        this.producto.deshabilitado = false;
+        this.deshabilitado = false;
+        this.formProductos.enable();
+      } else {
+        this.producto.deshabilitado = true;
+        this.deshabilitado = true;
+        this.formProductos.disable();
+      }
+    } else {
+      alert('NO PUEDES DESHABILITAR UN PRODUCTO QUE NO HA SIDO CREADO');
+    }
   }
 
   // metodo para el submit

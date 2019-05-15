@@ -27,6 +27,7 @@ export const MENUCOMERCIO: MenuComercio[] = [
             estado: 'activo',
             precio: 15000,
             foto: '',
+            deshabilitado: false,
             componente: [
                 {
                     id: '5c9ab538b13e55145f588592',
@@ -129,6 +130,7 @@ export const MENUCOMERCIO: MenuComercio[] = [
             estado: 'activo',
             precio: 15000,
             foto: '',
+            deshabilitado: false,
             componente: []
         }]
      }

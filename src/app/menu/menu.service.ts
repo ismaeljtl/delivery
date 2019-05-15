@@ -29,8 +29,23 @@ export class MenuService {
   addProducto(prod) {
     for (const negocio of MENUCOMERCIO) {
       if (negocio.nombre === prod.categoriaProducto) {
-        negocio.productos.push(prod);
+        let cont = 0;
+        for (const producto of negocio.productos) {
+          // existe
+          if (producto.nombre === prod.nombre) {
+            producto.precio = prod.precio;
+          } else {
+            cont++;
+          }
+        }
+        // es nuevo
+        if (cont === negocio.productos.length) {
+          negocio.productos.push(prod);
+        }
       }
+      // if (negocio.nombre === prod.categoriaProducto) {
+      //   negocio.productos.push(prod);
+      // }
     }
   }
 

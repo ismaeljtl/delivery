@@ -1,7 +1,6 @@
 <!-- formulario producto -->
 <form [formGroup]="formProductos" (ngSubmit)="onSubmit()">
 
-
   <div class="modal fade" id="modalProducto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
       <div class="modal-content">
@@ -133,7 +132,13 @@
               
         <div class="modal-footer">
           <div>
-            <button type="button" class="btn btn-danger">Deshabilitar</button>
+            <ng-container *ngIf="deshabilitado; else elseTemplate">
+              <button type="button" class="btn btn-danger" (click)="deshabilitar()">Habilitar</button>              
+            </ng-container>
+            <ng-template #elseTemplate>
+              <button type="button" class="btn btn-danger" (click)="deshabilitar()">Deshabilitar</button>                            
+            </ng-template>
+            
           </div>
           <div>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
