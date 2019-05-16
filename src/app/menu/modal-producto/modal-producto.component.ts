@@ -158,6 +158,7 @@ export class ModalProductoComponent implements OnInit {
     control.removeAt( control.length - 1 );
   }
 
+  // FIXME: Cuando deshabilito un producto y quiero agregar uno nuevo el formulario aparece deshabilitado
   // metodo para deshabilitar o habilitar un producto
   deshabilitar() {
     // TODO: crear una mejor forma de validacion (puede ser verificando el id)
