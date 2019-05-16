@@ -22,7 +22,7 @@ export class ModalProductoComponent implements OnInit {
   producto: Producto;
 
   // variable que notificara si un producto esta habilitado o deshabilitado
-  deshabilitado: boolean = false;
+  deshabilitado: boolean;
 
   constructor(private fb: FormBuilder, private menuService: MenuService) { }
 
@@ -77,14 +77,32 @@ export class ModalProductoComponent implements OnInit {
 
   // metodo para cargar los valores del producto en el formulario del modal
   patchForm(producto: Producto) {
+    // si el producto se encuentra deshabilitado debemos deshabilitarlo
+    if (this.producto.deshabilitado) {
+      this.formProductos.disable();
+      // (this.formProductos.get('componente') as FormArray).disable();
+    } else {
+      this.formProductos.enable();
+      // (this.formProductos.get('componente') as FormArray).enable();
+    }
+
     // primero limpiamos tdos los campos
     this.inicializarForm();
 
     // empezamos a llenar los campos
     this.formProductos.patchValue(producto);
+
     for (let i = 0; i < producto.componente.length; i++) {
       // agregamos el campo de categoria y llenamos la informacion
       this.addCategoria();
+
+      // si el producto se encuentra deshabilitado debemos deshabilitar los subcontroles
+      if (this.producto.deshabilitado) {
+        (this.formProductos.get('componente') as FormArray).disable();
+      } else {
+        (this.formProductos.get('componente') as FormArray).enable();
+      }
+
       this.formProductos.get('componente').patchValue(producto.componente);
 
       for (let j = 0; j < producto.componente[i].comp_ing.length; j++) {
@@ -95,7 +113,7 @@ export class ModalProductoComponent implements OnInit {
       // eliminamos un ingrediente para que no quede un campo nuevo para llenar
       this.deleteIngredientes(i);
     }
-      // eliminamos una categoria para que no quede un campo nuevo para llenar
+    // eliminamos una categoria para que no quede un campo nuevo para llenar
     this.deleteCategoria();
   }
 
@@ -146,13 +164,11 @@ export class ModalProductoComponent implements OnInit {
     if (this.producto.nombre !== '') {
       if (this.producto.deshabilitado) {
         this.producto.deshabilitado = false;
-        this.deshabilitado = false;
-        this.formProductos.enable();
       } else {
         this.producto.deshabilitado = true;
-        this.deshabilitado = true;
-        this.formProductos.disable();
       }
+      this.deshabilitado = this.producto.deshabilitado;
+      this.patchForm(this.producto);
     } else {
       alert('NO PUEDES DESHABILITAR UN PRODUCTO QUE NO HA SIDO CREADO');
     }

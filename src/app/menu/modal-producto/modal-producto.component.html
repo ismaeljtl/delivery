@@ -138,11 +138,11 @@
             <ng-template #elseTemplate>
               <button type="button" class="btn btn-danger" (click)="deshabilitar()">Deshabilitar</button>                            
             </ng-template>
-            
           </div>
+          
           <div>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-            <button type="submit"  class="btn btn-primary submit">Agregar</button>
+            <button type="submit" [disabled]="!formProductos.valid" class="btn btn-primary submit">Agregar</button>
           </div>
         </div>
       </div>

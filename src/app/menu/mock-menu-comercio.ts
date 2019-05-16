@@ -131,7 +131,24 @@ export const MENUCOMERCIO: MenuComercio[] = [
             precio: 15000,
             foto: '',
             deshabilitado: false,
-            componente: []
+            componente: [
+                {
+                    id: '5c9ab538b13e55145f588592',
+                    nombreComponente: 'Ingredientes',
+                    tipoComponente: 'seleccion multiple',
+                    comp_ing: [
+                        {
+                            id: '5c9ab538b13e55145f588595',
+                            ingrediente_id: '5c9ab1828d194d132c208798',
+                            obligatorio: true,
+                            preseleccionado: true,
+                            nombre_ingrediente: 'Helado',
+                            precio: '300',
+                            agotado: false
+                        }
+                    ]
+                }
+            ]
         }]
      }
 ]
