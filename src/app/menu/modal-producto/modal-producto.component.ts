@@ -41,6 +41,7 @@ export class ModalProductoComponent implements OnInit {
       this.deshabilitado = this.producto.deshabilitado;
 
       // esto evita que el formulario se cargue deshabilitado si se abrio un producto deshabilitado
+      // se puede leer de este problema aqui: https://github.com/angular/angular/issues/22556
       setTimeout(() => {
         this.formProductos.enable();
         (this.formProductos.get('componente') as FormArray).enable();
