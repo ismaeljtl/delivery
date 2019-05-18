@@ -43,9 +43,6 @@ export class MenuService {
           negocio.productos.push(prod);
         }
       }
-      // if (negocio.nombre === prod.categoriaProducto) {
-      //   negocio.productos.push(prod);
-      // }
     }
   }
 

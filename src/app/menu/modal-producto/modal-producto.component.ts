@@ -39,6 +39,12 @@ export class ModalProductoComponent implements OnInit {
       this.inicializarForm();
       this.producto = new Producto();
       this.deshabilitado = this.producto.deshabilitado;
+
+      // esto evita que el formulario se cargue deshabilitado si se abrio un producto deshabilitado
+      setTimeout(() => {
+        this.formProductos.enable();
+        (this.formProductos.get('componente') as FormArray).enable();
+      });
     });
 
     // Cuando clickean un producto obtengo la informacion del objeto
@@ -77,6 +83,7 @@ export class ModalProductoComponent implements OnInit {
 
   // metodo para cargar los valores del producto en el formulario del modal
   patchForm(producto: Producto) {
+    console.log(producto);
     // si el producto se encuentra deshabilitado debemos deshabilitarlo
     if (this.producto.deshabilitado) {
       this.formProductos.disable();
@@ -86,7 +93,7 @@ export class ModalProductoComponent implements OnInit {
       // (this.formProductos.get('componente') as FormArray).enable();
     }
 
-    // primero limpiamos tdos los campos
+    // limpiamos tdos los campos
     this.inicializarForm();
 
     // empezamos a llenar los campos
@@ -108,6 +115,14 @@ export class ModalProductoComponent implements OnInit {
       for (let j = 0; j < producto.componente[i].comp_ing.length; j++) {
         // agregamos el campo de ingrediente y llenamos la informacion
         this.addIngredientes(i);
+
+        // si el producto se encuentra deshabilitado debemos deshabilitar los subcontroles
+        if (this.producto.deshabilitado) {
+          (this.formProductos.controls.componente as FormArray).at(i).get('comp_ing').disable();
+        } else {
+          (this.formProductos.controls.componente as FormArray).at(i).get('comp_ing').enable();
+        }
+
         (this.formProductos.controls.componente as FormArray).at(i).get('comp_ing').patchValue(producto.componente[i].comp_ing);
       }
       // eliminamos un ingrediente para que no quede un campo nuevo para llenar
@@ -158,8 +173,6 @@ export class ModalProductoComponent implements OnInit {
     control.removeAt( control.length - 1 );
   }
 
-  // FIXME: Cuando deshabilito un producto y quiero agregar uno nuevo el formulario aparece deshabilitado
-  // metodo para deshabilitar o habilitar un producto
   deshabilitar() {
     // TODO: crear una mejor forma de validacion (puede ser verificando el id)
     if (this.producto.nombre !== '') {
