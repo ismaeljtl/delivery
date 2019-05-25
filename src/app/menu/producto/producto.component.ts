@@ -21,9 +21,6 @@ export class ProductoComponent implements OnInit {
   ngOnInit() {
     this.productos = this.menuService.getMockProductos();
 
-    // Funcion que inicializa los Tooltips (componente de bootstrap, buscar en la documentacion).
-    $('[data-toggle="tooltip"]').tooltip();
-
     // Al iniciar el componente nos suscribimos a la funcion de menu.service, de esta
     // manera, al momento que ocurra un evento, el servicio nos lo informara
     this.menuService.categoriaSeleccionada.subscribe((param: string) => {
