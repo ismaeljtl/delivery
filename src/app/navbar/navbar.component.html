@@ -23,10 +23,6 @@
       </li>
 
       <li class="nav-item" routerLinkActive="active-link">
-        <a class="nav-link" routerLink="/zonas">Zonas</a>
-      </li>
-
-      <li class="nav-item" routerLinkActive="active-link">
         <a class="nav-link" routerLink="/pedidos">Pedidos 
           <ng-template [ngIf]="pedidos === 0" [ngIfElse]="alertRed">
             <span class="alert-blue">{{ pedidos }}</span>
