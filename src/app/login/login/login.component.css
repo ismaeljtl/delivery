@@ -1,5 +1,7 @@
 img {
-    margin: 20% 10% 10%;
+    margin: 0 auto 5% auto;
+    display: block;
+    max-height: 250px;
 }
 
 .link {
@@ -24,7 +26,12 @@ a:hover {
 
 .login {
     background-color: #F4F4F4;
-    /* padding: 0 30px; */
+}
+
+.contenedor {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .hero {
